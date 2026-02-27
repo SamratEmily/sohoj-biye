@@ -26,6 +26,7 @@ export default function Layout({ children }) {
 
     const adminNav = [
         { name: 'ড্যাশবোর্ড', href: '/admin/dashboard', icon: Home },
+        { name: 'বায়োডাটা ফিড', href: '/feed', icon: Search },
         { name: 'অপেক্ষমাণ ব্যবহারকারী', href: '/admin/pending-users', icon: User },
         { name: 'সকল ব্যবহারকারী', href: '/admin/users', icon: FileText },
         { name: 'প্রস্তাবসমূহ', href: '/admin/proposals', icon: Send },
