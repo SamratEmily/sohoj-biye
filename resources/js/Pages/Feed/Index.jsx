@@ -149,15 +149,25 @@ export default function Index({ biodatas, filters }) {
                             </div>
                             <div>
                                 <label className="block text-sm text-dark-400 mb-1">জেলা</label>
-                                <select value={localFilters.district} onChange={(e) => setLocalFilters({ ...localFilters, district: e.target.value, upazila: '' })} className="glass-input w-full text-sm">
-                                    <option value="">সকল</option>
+                                <select
+                                    value={localFilters.district}
+                                    onChange={(e) => setLocalFilters({ ...localFilters, district: e.target.value, upazila: '' })}
+                                    className="glass-input w-full text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                                    disabled={!localFilters.division}
+                                >
+                                    <option value="">{localFilters.division ? 'সকল জেলা' : 'আগে বিভাগ নির্বাচন করুন'}</option>
                                     {districts.map((d) => <option key={d} value={d}>{d}</option>)}
                                 </select>
                             </div>
                             <div>
                                 <label className="block text-sm text-dark-400 mb-1">উপজেলা</label>
-                                <select value={localFilters.upazila} onChange={(e) => setLocalFilters({ ...localFilters, upazila: e.target.value })} className="glass-input w-full text-sm">
-                                    <option value="">সকল</option>
+                                <select
+                                    value={localFilters.upazila}
+                                    onChange={(e) => setLocalFilters({ ...localFilters, upazila: e.target.value })}
+                                    className="glass-input w-full text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                                    disabled={!localFilters.district}
+                                >
+                                    <option value="">{localFilters.district ? 'সকল উপজেলা' : 'আগে জেলা নির্বাচন করুন'}</option>
                                     {upazilas.map((u) => <option key={u} value={u}>{u}</option>)}
                                 </select>
                             </div>

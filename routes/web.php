@@ -26,6 +26,10 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+    // Feed - accessible by both approved users and admins
+    Route::get('/feed', [BiodataController::class, 'index'])->name('feed');
+    Route::get('/feed/{biodata}', [BiodataController::class, 'show'])->name('feed.show');
+
     // Approved User Routes
     Route::middleware('approved')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -35,10 +39,6 @@ Route::middleware('auth')->group(function () {
         Route::post('/biodata', [BiodataController::class, 'store'])->name('biodata.store');
         Route::get('/biodata/{biodata}/edit', [BiodataController::class, 'edit'])->name('biodata.edit');
         Route::put('/biodata/{biodata}', [BiodataController::class, 'update'])->name('biodata.update');
-
-        // Feed
-        Route::get('/feed', [BiodataController::class, 'index'])->name('feed');
-        Route::get('/feed/{biodata}', [BiodataController::class, 'show'])->name('feed.show');
 
         // Proposals
         Route::post('/proposals', [ProposalController::class, 'store'])->name('proposals.store');
