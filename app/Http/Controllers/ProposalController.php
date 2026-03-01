@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Proposal;
 use App\Models\Biodata;
+use App\Models\ChatRoom;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -47,17 +48,56 @@ class ProposalController extends Controller
             'status' => 'pending',
         ]);
 
-        return back()->with('success', 'প্রস্তাব সফলভাবে পাঠানো হয়েছে! অ্যাডমিনের অনুমোদনের জন্য অপেক্ষা করুন।');
+        return back()->with('success', 'প্রস্তাব সফলভাবে পাঠানো হয়েছে! প্রাপকের সিদ্ধান্তের জন্য অপেক্ষা করুন।');
+    }
+
+    public function accept(Proposal $proposal)
+    {
+        if ($proposal->receiver_id !== auth()->id()) {
+            abort(403);
+        }
+
+        if ($proposal->status !== 'pending') {
+            return back()->withErrors(['error' => 'এই প্রস্তাবে আর কোনো পরিবর্তন করা যাবে না']);
+        }
+
+        $proposal->update(['status' => 'approved']);
+
+        ChatRoom::firstOrCreate(
+            ['proposal_id' => $proposal->id],
+            [
+                'user_one_id' => $proposal->sender_id,
+                'user_two_id' => $proposal->receiver_id,
+                'is_active' => true,
+            ]
+        );
+
+        return back()->with('success', 'প্রস্তাব গৃহীত হয়েছে! এখন চ্যাট করতে পারবেন।');
+    }
+
+    public function reject(Proposal $proposal)
+    {
+        if ($proposal->receiver_id !== auth()->id()) {
+            abort(403);
+        }
+
+        if ($proposal->status !== 'pending') {
+            return back()->withErrors(['error' => 'এই প্রস্তাবে আর কোনো পরিবর্তন করা যাবে না']);
+        }
+
+        $proposal->update(['status' => 'rejected']);
+
+        return back()->with('success', 'প্রস্তাব প্রত্যাখ্যান করা হয়েছে।');
     }
 
     public function myProposals()
     {
-        $sentProposals = Proposal::with(['receiver', 'biodata'])
+        $sentProposals = Proposal::with(['receiver', 'biodata', 'chatRoom'])
             ->where('sender_id', auth()->id())
             ->latest()
             ->get();
 
-        $receivedProposals = Proposal::with(['sender', 'biodata'])
+        $receivedProposals = Proposal::with(['sender', 'biodata', 'chatRoom'])
             ->where('receiver_id', auth()->id())
             ->latest()
             ->get();

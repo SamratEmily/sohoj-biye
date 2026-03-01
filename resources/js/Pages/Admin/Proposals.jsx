@@ -1,25 +1,11 @@
-import { Head, Link, router } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import Layout from '../../Layouts/Layout';
-import { Send, User, CheckCircle, XCircle, MessageCircle, Clock, Heart } from 'lucide-react';
-import { useState } from 'react';
+import { Send, User, XCircle, MessageCircle, Clock, Heart } from 'lucide-react';
 
 export default function Proposals({ proposals }) {
-    const [rejectingId, setRejectingId] = useState(null);
-    const [rejectNote, setRejectNote] = useState('');
-
-    const handleApprove = (id) => {
-        router.post(`/admin/proposals/${id}/approve`, {}, { preserveScroll: true });
-    };
-
-    const handleReject = (id) => {
-        router.post(`/admin/proposals/${id}/reject`, { note: rejectNote }, { preserveScroll: true });
-        setRejectingId(null);
-        setRejectNote('');
-    };
-
     const statusConfig = {
         'pending': { label: 'অপেক্ষমাণ', color: 'text-yellow-400 bg-yellow-500/20 border-yellow-500/30', icon: Clock },
-        'approved': { label: 'অনুমোদিত (চ্যাট চালু)', color: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30', icon: MessageCircle },
+        'approved': { label: 'গৃহীত (চ্যাট চালু)', color: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30', icon: MessageCircle },
         'rejected': { label: 'প্রত্যাখ্যানিত', color: 'text-red-400 bg-red-500/20 border-red-500/30', icon: XCircle },
     };
 
@@ -82,41 +68,7 @@ export default function Proposals({ proposals }) {
                                             </p>
                                         </div>
 
-                                        {/* Actions */}
-                                        {proposal.status === 'pending' && (
-                                            <div className="flex flex-col space-y-2 lg:ml-6">
-                                                <button onClick={() => handleApprove(proposal.id)} className="btn-success flex items-center space-x-2 text-sm">
-                                                    <CheckCircle className="w-4 h-4" />
-                                                    <span>অনুমোদন</span>
-                                                </button>
-                                                <button onClick={() => setRejectingId(proposal.id)} className="btn-danger flex items-center space-x-2 text-sm">
-                                                    <XCircle className="w-4 h-4" />
-                                                    <span>প্রত্যাখ্যান</span>
-                                                </button>
-                                            </div>
-                                        )}
                                     </div>
-
-                                    {/* Reject Note Form */}
-                                    {rejectingId === proposal.id && (
-                                        <div className="mt-4 pt-4 border-t border-dark-700/30 slide-up">
-                                            <textarea
-                                                value={rejectNote}
-                                                onChange={(e) => setRejectNote(e.target.value)}
-                                                rows={2}
-                                                className="glass-input w-full text-sm mb-3"
-                                                placeholder="প্রত্যাখ্যানের কারণ (ঐচ্ছিক)"
-                                            />
-                                            <div className="flex space-x-2">
-                                                <button onClick={() => handleReject(proposal.id)} className="btn-danger text-sm py-1.5 px-4">
-                                                    নিশ্চিত
-                                                </button>
-                                                <button onClick={() => setRejectingId(null)} className="btn-secondary text-sm py-1.5 px-4">
-                                                    বাতিল
-                                                </button>
-                                            </div>
-                                        </div>
-                                    )}
                                 </div>
                             );
                         })}

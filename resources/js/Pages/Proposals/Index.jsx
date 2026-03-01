@@ -1,12 +1,22 @@
-import { Head } from '@inertiajs/react';
+import { Head, Link, router } from '@inertiajs/react';
 import Layout from '../../Layouts/Layout';
 import { Send, Heart, Clock, CheckCircle, XCircle, MessageCircle, User } from 'lucide-react';
 
 export default function Index({ sentProposals, receivedProposals }) {
     const statusLabels = {
         'pending': { label: 'অপেক্ষমাণ', color: 'text-yellow-400 bg-yellow-500/20 border-yellow-500/30', icon: Clock },
-        'approved': { label: 'অনুমোদিত (চ্যাট চালু)', color: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30', icon: MessageCircle },
+        'approved': { label: 'গৃহীত (চ্যাট চালু)', color: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30', icon: MessageCircle },
         'rejected': { label: 'প্রত্যাখ্যানিত', color: 'text-red-400 bg-red-500/20 border-red-500/30', icon: XCircle },
+    };
+
+    const handleAccept = (id) => {
+        router.post(`/proposals/${id}/accept`, {}, { preserveScroll: true });
+    };
+
+    const handleReject = (id) => {
+        if (confirm('আপনি কি এই প্রস্তাব প্রত্যাখ্যান করতে চান?')) {
+            router.post(`/proposals/${id}/reject`, {}, { preserveScroll: true });
+        }
     };
 
     const ProposalCard = ({ proposal, type }) => {
@@ -27,7 +37,7 @@ export default function Index({ sentProposals, receivedProposals }) {
                         )}
                     </div>
                     <div className="flex-1 min-w-0">
-                        <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center justify-between mb-2 flex-wrap gap-2">
                             <h3 className="font-semibold text-dark-100 truncate">{otherUser?.name}</h3>
                             <span className={`text-xs px-3 py-1 rounded-full border font-medium flex items-center space-x-1 ${status?.color}`}>
                                 <StatusIcon className="w-3 h-3" />
@@ -44,6 +54,39 @@ export default function Index({ sentProposals, receivedProposals }) {
                         <p className="text-dark-600 text-xs mt-2">
                             {new Date(proposal.created_at).toLocaleDateString('bn-BD')}
                         </p>
+
+                        {/* Receiver actions for pending proposals */}
+                        {type === 'received' && proposal.status === 'pending' && (
+                            <div className="flex items-center space-x-3 mt-4 pt-3 border-t border-dark-700/30">
+                                <button
+                                    onClick={() => handleAccept(proposal.id)}
+                                    className="flex items-center space-x-2 px-4 py-2 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-500/30 transition-all text-sm font-medium"
+                                >
+                                    <CheckCircle className="w-4 h-4" />
+                                    <span>গ্রহণ করুন</span>
+                                </button>
+                                <button
+                                    onClick={() => handleReject(proposal.id)}
+                                    className="flex items-center space-x-2 px-4 py-2 rounded-xl bg-red-500/20 text-red-300 border border-red-500/30 hover:bg-red-500/30 transition-all text-sm font-medium"
+                                >
+                                    <XCircle className="w-4 h-4" />
+                                    <span>প্রত্যাখ্যান করুন</span>
+                                </button>
+                            </div>
+                        )}
+
+                        {/* Chat button when proposal is accepted */}
+                        {proposal.status === 'approved' && proposal.chat_room && (
+                            <div className="mt-4 pt-3 border-t border-dark-700/30">
+                                <Link
+                                    href={`/chat/${proposal.chat_room.id}`}
+                                    className="flex items-center space-x-2 px-4 py-2 rounded-xl bg-primary-500/20 text-primary-300 border border-primary-500/30 hover:bg-primary-500/30 transition-all text-sm font-medium w-fit"
+                                >
+                                    <MessageCircle className="w-4 h-4" />
+                                    <span>চ্যাট করুন</span>
+                                </Link>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
@@ -58,6 +101,26 @@ export default function Index({ sentProposals, receivedProposals }) {
                 <div>
                     <h1 className="text-3xl font-bold text-dark-100">আমার প্রস্তাবসমূহ</h1>
                     <p className="text-dark-400 mt-1">পাঠানো ও প্রাপ্ত প্রস্তাব</p>
+                </div>
+
+                {/* Received Proposals — shown first so receiver can act */}
+                <div>
+                    <div className="flex items-center space-x-2 mb-4">
+                        <Heart className="w-5 h-5 text-primary-400" />
+                        <h2 className="text-xl font-semibold text-dark-100">প্রাপ্ত প্রস্তাব ({receivedProposals.length})</h2>
+                    </div>
+                    {receivedProposals.length > 0 ? (
+                        <div className="grid gap-4">
+                            {receivedProposals.map((proposal) => (
+                                <ProposalCard key={proposal.id} proposal={proposal} type="received" />
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="glass-card p-8 text-center">
+                            <Heart className="w-12 h-12 text-dark-600 mx-auto mb-3" />
+                            <p className="text-dark-400">এখনও কোনো প্রস্তাব পাননি</p>
+                        </div>
+                    )}
                 </div>
 
                 {/* Sent Proposals */}
@@ -76,26 +139,6 @@ export default function Index({ sentProposals, receivedProposals }) {
                         <div className="glass-card p-8 text-center">
                             <Send className="w-12 h-12 text-dark-600 mx-auto mb-3" />
                             <p className="text-dark-400">এখনও কোনো প্রস্তাব পাঠানো হয়নি</p>
-                        </div>
-                    )}
-                </div>
-
-                {/* Received Proposals */}
-                <div>
-                    <div className="flex items-center space-x-2 mb-4">
-                        <Heart className="w-5 h-5 text-primary-400" />
-                        <h2 className="text-xl font-semibold text-dark-100">প্রাপ্ত প্রস্তাব ({receivedProposals.length})</h2>
-                    </div>
-                    {receivedProposals.length > 0 ? (
-                        <div className="grid gap-4">
-                            {receivedProposals.map((proposal) => (
-                                <ProposalCard key={proposal.id} proposal={proposal} type="received" />
-                            ))}
-                        </div>
-                    ) : (
-                        <div className="glass-card p-8 text-center">
-                            <Heart className="w-12 h-12 text-dark-600 mx-auto mb-3" />
-                            <p className="text-dark-400">এখনও কোনো প্রস্তাব পাননি</p>
                         </div>
                     )}
                 </div>

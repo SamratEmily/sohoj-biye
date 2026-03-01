@@ -43,6 +43,8 @@ Route::middleware('auth')->group(function () {
         // Proposals
         Route::post('/proposals', [ProposalController::class, 'store'])->name('proposals.store');
         Route::get('/proposals', [ProposalController::class, 'myProposals'])->name('proposals.index');
+        Route::post('/proposals/{proposal}/accept', [ProposalController::class, 'accept'])->name('proposals.accept');
+        Route::post('/proposals/{proposal}/reject', [ProposalController::class, 'reject'])->name('proposals.reject');
 
         // Chat
         Route::get('/chat', [ChatController::class, 'index'])->name('chat.index');
@@ -60,6 +62,4 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::post('/users/{user}/approve', [AdminController::class, 'approveUser'])->name('users.approve');
     Route::post('/users/{user}/reject', [AdminController::class, 'rejectUser'])->name('users.reject');
     Route::get('/proposals', [AdminController::class, 'proposals'])->name('proposals');
-    Route::post('/proposals/{proposal}/approve', [AdminController::class, 'approveProposal'])->name('proposals.approve');
-    Route::post('/proposals/{proposal}/reject', [AdminController::class, 'rejectProposal'])->name('proposals.reject');
 });

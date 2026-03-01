@@ -131,31 +131,5 @@ class AdminController extends Controller
         ]);
     }
 
-    public function approveProposal(Proposal $proposal)
-    {
-        $proposal->update(['status' => 'approved']);
-
-        // Automatically create a chat room for both parties
-        ChatRoom::firstOrCreate([
-            'proposal_id' => $proposal->id,
-        ], [
-            'user_one_id' => $proposal->sender_id,
-            'user_two_id' => $proposal->receiver_id,
-            'is_active' => true,
-        ]);
-
-        return back()->with('success', 'প্রস্তাব অনুমোদিত হয়েছে এবং চ্যাট রুম তৈরি হয়েছে।');
-    }
-
-    public function rejectProposal(Request $request, Proposal $proposal)
-    {
-        $proposal->update([
-            'status' => 'rejected',
-            'admin_note' => $request->note,
-        ]);
-
-        return back()->with('success', 'প্রস্তাব প্রত্যাখ্যান করা হয়েছে।');
-    }
-
-
 }
+
