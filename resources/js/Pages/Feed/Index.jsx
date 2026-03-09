@@ -1,5 +1,6 @@
 import { Head, Link, router } from '@inertiajs/react';
 import Layout from '../../Layouts/Layout';
+import Pagination from '../../Components/Pagination';
 import { getDivisions, getDistricts, getUpazilas } from '../../data/bangladeshData';
 import { Search, Filter, MapPin, Briefcase, GraduationCap, Heart, Calendar, User, X, SlidersHorizontal } from 'lucide-react';
 import { useState } from 'react';
@@ -93,8 +94,8 @@ export default function Index({ biodatas, filters }) {
                                 router.get('/feed', { ...localFilters, type: type.value }, { preserveState: true });
                             }}
                             className={`px-5 py-2 rounded-xl text-sm font-medium transition-all ${localFilters.type === type.value
-                                    ? 'bg-primary-500/20 text-primary-300 border border-primary-500/30'
-                                    : 'bg-dark-800/50 text-dark-400 border border-dark-700/30 hover:border-dark-600'
+                                ? 'bg-primary-500/20 text-primary-300 border border-primary-500/30'
+                                : 'bg-dark-800/50 text-dark-400 border border-dark-700/30 hover:border-dark-600'
                                 }`}
                         >
                             {type.label}
@@ -202,8 +203,8 @@ export default function Index({ biodatas, filters }) {
                                         <div className="flex-1 min-w-0">
                                             <div className="flex items-center space-x-2 mb-1">
                                                 <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${biodata.biodata_type === 'bride'
-                                                        ? 'bg-pink-500/20 text-pink-300 border border-pink-500/30'
-                                                        : 'bg-blue-500/20 text-blue-300 border border-blue-500/30'
+                                                    ? 'bg-pink-500/20 text-pink-300 border border-pink-500/30'
+                                                    : 'bg-blue-500/20 text-blue-300 border border-blue-500/30'
                                                     }`}>
                                                     {biodata.biodata_type === 'bride' ? 'পাত্রী' : 'পাত্র'}
                                                 </span>
@@ -257,23 +258,7 @@ export default function Index({ biodatas, filters }) {
                 )}
 
                 {/* Pagination */}
-                {biodatas.links && biodatas.links.length > 3 && (
-                    <div className="flex justify-center space-x-2">
-                        {biodatas.links.map((link, i) => (
-                            <Link
-                                key={i}
-                                href={link.url || '#'}
-                                className={`px-4 py-2 rounded-xl text-sm transition-all ${link.active
-                                        ? 'bg-primary-500/20 text-primary-300 border border-primary-500/30'
-                                        : link.url
-                                            ? 'bg-dark-800/50 text-dark-400 border border-dark-700/30 hover:border-dark-600'
-                                            : 'bg-dark-800/30 text-dark-600 cursor-not-allowed'
-                                    }`}
-                                dangerouslySetInnerHTML={{ __html: link.label }}
-                            />
-                        ))}
-                    </div>
-                )}
+                <Pagination links={biodatas.links} />
             </div>
         </Layout>
     );

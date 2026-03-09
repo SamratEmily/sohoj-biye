@@ -90,17 +90,19 @@ class ProposalController extends Controller
         return back()->with('success', 'প্রস্তাব প্রত্যাখ্যান করা হয়েছে।');
     }
 
-    public function myProposals()
+    public function myProposals(Request $request)
     {
         $sentProposals = Proposal::with(['receiver', 'biodata', 'chatRoom'])
             ->where('sender_id', auth()->id())
             ->latest()
-            ->get();
+            ->paginate(8, ['*'], 'sent_page')
+            ->withQueryString();
 
         $receivedProposals = Proposal::with(['sender', 'biodata', 'chatRoom'])
             ->where('receiver_id', auth()->id())
             ->latest()
-            ->get();
+            ->paginate(8, ['*'], 'received_page')
+            ->withQueryString();
 
         return Inertia::render('Proposals/Index', [
             'sentProposals' => $sentProposals,
