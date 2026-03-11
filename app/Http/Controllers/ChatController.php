@@ -20,8 +20,8 @@ class ChatController extends Controller
             })
             ->where('is_active', true)
             ->latest()
-            ->get()
-            ->map(function ($room) use ($userId) {
+            ->paginate(8)
+            ->through(function ($room) use ($userId) {
                 $otherUser = $room->user_one_id === $userId ? $room->userTwo : $room->userOne;
                 $unreadCount = $room->messages()
                     ->where('sender_id', '!=', $userId)

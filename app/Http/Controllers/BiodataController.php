@@ -35,7 +35,7 @@ class BiodataController extends Controller
             });
         }
 
-        $biodatas = $query->latest()->paginate(12);
+        $biodatas = $query->latest()->paginate(15);
 
         return Inertia::render('Feed/Index', [
             'biodatas' => $biodatas,

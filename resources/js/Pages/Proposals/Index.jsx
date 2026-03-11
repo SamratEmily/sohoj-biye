@@ -1,5 +1,6 @@
 import { Head, Link, router } from '@inertiajs/react';
 import Layout from '../../Layouts/Layout';
+import Pagination from '../../Components/Pagination';
 import { Send, Heart, Clock, CheckCircle, XCircle, MessageCircle, User } from 'lucide-react';
 
 export default function Index({ sentProposals, receivedProposals }) {
@@ -107,13 +108,16 @@ export default function Index({ sentProposals, receivedProposals }) {
                 <div>
                     <div className="flex items-center space-x-2 mb-4">
                         <Heart className="w-5 h-5 text-primary-400" />
-                        <h2 className="text-xl font-semibold text-dark-100">প্রাপ্ত প্রস্তাব ({receivedProposals.length})</h2>
+                        <h2 className="text-xl font-semibold text-dark-100">প্রাপ্ত প্রস্তাব ({receivedProposals.total})</h2>
                     </div>
-                    {receivedProposals.length > 0 ? (
-                        <div className="grid gap-4">
-                            {receivedProposals.map((proposal) => (
-                                <ProposalCard key={proposal.id} proposal={proposal} type="received" />
-                            ))}
+                    {receivedProposals.data.length > 0 ? (
+                        <div className="space-y-4">
+                            <div className="grid gap-4">
+                                {receivedProposals.data.map((proposal) => (
+                                    <ProposalCard key={proposal.id} proposal={proposal} type="received" />
+                                ))}
+                            </div>
+                            <Pagination links={receivedProposals.links} />
                         </div>
                     ) : (
                         <div className="glass-card p-8 text-center">
@@ -127,13 +131,16 @@ export default function Index({ sentProposals, receivedProposals }) {
                 <div>
                     <div className="flex items-center space-x-2 mb-4">
                         <Send className="w-5 h-5 text-primary-400" />
-                        <h2 className="text-xl font-semibold text-dark-100">পাঠানো প্রস্তাব ({sentProposals.length})</h2>
+                        <h2 className="text-xl font-semibold text-dark-100">পাঠানো প্রস্তাব ({sentProposals.total})</h2>
                     </div>
-                    {sentProposals.length > 0 ? (
-                        <div className="grid gap-4">
-                            {sentProposals.map((proposal) => (
-                                <ProposalCard key={proposal.id} proposal={proposal} type="sent" />
-                            ))}
+                    {sentProposals.data.length > 0 ? (
+                        <div className="space-y-4">
+                            <div className="grid gap-4">
+                                {sentProposals.data.map((proposal) => (
+                                    <ProposalCard key={proposal.id} proposal={proposal} type="sent" />
+                                ))}
+                            </div>
+                            <Pagination links={sentProposals.links} />
                         </div>
                     ) : (
                         <div className="glass-card p-8 text-center">
