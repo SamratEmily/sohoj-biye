@@ -13,567 +13,403 @@ class DemoSeeder extends Seeder
 {
     public function run(): void
     {
-        // ─── Approved Users with Biodatas ───────────────────────────────
+        // ─── Data Arrays ────────────────────────────────────────────────
 
-        // Groom 1
-        $groom1 = User::create([
-            'name' => 'আরিফ হোসেন',
-            'email' => 'arif@demo.com',
-            'phone' => '01712345678',
-            'password' => bcrypt('password'),
-            'role' => 'user',
-            'status' => 'approved',
-            'email_verified_at' => now(),
-        ]);
+        $groomNames = [
+            'আরিফ হোসেন', 'তানভীর আহমেদ', 'রাকিব হাসান', 'সুব্রত দাস', 'মাহমুদুল হাসান',
+            'ইমরান হোসেন', 'নাজমুল ইসলাম', 'শাহরিয়ার রহমান', 'আশিকুর রহমান', 'মেহেদী হাসান',
+            'রিদওয়ান হোসেন', 'সাইফুল ইসলাম', 'আবু বকর', 'মোঃ সালাউদ্দিন', 'হাসিবুল হক',
+            'জাবির আহমেদ', 'তৌফিক হাসান', 'রফিকুল ইসলাম', 'মাসুম বিল্লাহ', 'রাহাত হোসেন',
+            'ফারহান আহমেদ', 'নাইমুল ইসলাম', 'মিজানুর রহমান', 'সাজ্জাদ হোসেন', 'জুবায়ের আহমেদ',
+            'আকরামুল ইসলাম', 'নাফিস উদ্দিন', 'সাদাত হোসেন', 'মাহফুজ আলম', 'রিয়াদ হোসেন',
+            'তারেক আজিজ', 'শামীম হোসেন', 'জিয়াউর রহমান', 'মনির হোসেন', 'আনিসুর রহমান',
+            'ফয়সাল হোসেন', 'বিল্লাল হোসেন', 'আলামিন হোসেন', 'সাহিদুল ইসলাম', 'নূরুল ইসলাম',
+            'আজমাইন হোসেন', 'হামজা আহমেদ', 'ওয়াসিম আকরাম', 'শফিকুল ইসলাম', 'আনোয়ার হোসেন',
+            'দেলোয়ার হোসেন', 'সালমান ফারসী', 'তাহসিন আহমেদ', 'রিজওয়ান আলী', 'মুরাদ হোসেন',
+        ];
 
-        Biodata::create([
-            'user_id' => $groom1->id,
-            'biodata_type' => 'groom',
-            'date_of_birth' => '1997-03-15',
-            'marital_status' => 'unmarried',
-            'religion' => 'ইসলাম',
-            'height' => "৫'৮\"",
-            'weight' => '৬৮ কেজি',
-            'complexion' => 'ফর্সা',
-            'blood_group' => 'A+',
-            'division' => 'ঢাকা',
-            'district' => 'ঢাকা',
-            'upazila' => 'ধানমন্ডি',
-            'full_address' => 'ধানমন্ডি ২৭, রোড ৫',
-            'permanent_division' => 'চট্টগ্রাম',
-            'permanent_district' => 'চট্টগ্রাম',
-            'permanent_upazila' => 'পটিয়া',
-            'permanent_address' => 'পটিয়া, চট্টগ্রাম',
-            'education_level' => 'স্নাতকোত্তর (মাস্টার্স)',
-            'education_detail' => 'কম্পিউটার সায়েন্স, বুয়েট',
-            'profession' => 'সফটওয়্যার ইঞ্জিনিয়ার',
-            'monthly_income' => '৮০,০০০ টাকা',
-            'father_name' => 'মোঃ করিম হোসেন',
-            'father_profession' => 'ব্যবসায়ী',
-            'mother_name' => 'ফাতেমা বেগম',
-            'mother_profession' => 'গৃহিণী',
-            'brothers' => 1,
-            'sisters' => 2,
-            'about_me' => 'আমি একজন সফটওয়্যার ইঞ্জিনিয়ার। প্রযুক্তি নিয়ে কাজ করতে ভালোবাসি। নামাজ পড়ি, কুরআন তেলাওয়াত করি। ভ্রমণ ও বই পড়া আমার শখ।',
-            'contact_person' => 'মোঃ করিম হোসেন',
-            'contact_relation' => 'বাবা',
-            'partner_age_range' => '২১-২৫ বছর',
-            'partner_complexion' => 'ফর্সা বা উজ্জ্বল শ্যামলা',
-            'partner_height' => "৫'২\" - ৫'৫\"",
-            'partner_district' => 'যেকোনো',
-            'partner_education' => 'ন্যূনতম স্নাতক',
-            'partner_profession' => 'যেকোনো',
-            'qualities' => 'দ্বীনদার, শিক্ষিত, পরিবারপ্রিয়',
-            'is_published' => true,
-        ]);
+        $brideNames = [
+            'ফাতিমা জান্নাত', 'সাদিয়া রহমান', 'মারিয়াম আক্তার', 'নুসরাত জাহান', 'তাসনিম আক্তার',
+            'রুমানা ইসলাম', 'সাবিহা রহমান', 'নাজনীন সুলতানা', 'ফারজানা বেগম', 'শাহানারা বেগম',
+            'মিম আক্তার', 'সুমাইয়া হাসান', 'নাফিসা রহমান', 'আফরিন হোসেন', 'রিমা বেগম',
+            'সামিরা আক্তার', 'তানজিলা ইসলাম', 'নূর জান্নাত', 'সানজিদা হোসেন', 'ইসরাত জাহান',
+            'মাহজাবীন রহমান', 'শামিমা আক্তার', 'হাসনাত আরা', 'লাবণ্য ইসলাম', 'নওরিন তাবাস্সুম',
+            'জেরিন আক্তার', 'সোহানা বেগম', 'উম্মে কুলসুম', 'আয়েশা সিদ্দিকা', 'জান্নাতুল ফেরদৌস',
+            'সুরাইয়া বেগম', 'নাদিয়া ইসলাম', 'রোজিনা আক্তার', 'তানিয়া হোসেন', 'সুফিয়া বেগম',
+            'মাশরুরা হোসেন', 'ফারহানা ইসলাম', 'জুলেখা বেগম', 'নাসরিন আক্তার', 'আনোয়ারা বেগম',
+            'সামিনা ইসলাম', 'রুবাইয়াত হোসেন', 'মুশফিকা রহমান', 'খাদিজা তুল কুবরা', 'মাহবুবা খানম',
+            'শিরিন আক্তার', 'দিলরুবা বেগম', 'তানজিম আরা', 'জেসমিন আক্তার', 'ইশরাত জাহান',
+        ];
 
-        // Groom 2
-        $groom2 = User::create([
-            'name' => 'তানভীর আহমেদ',
-            'email' => 'tanvir@demo.com',
-            'phone' => '01798765432',
-            'password' => bcrypt('password'),
-            'role' => 'user',
-            'status' => 'approved',
-            'email_verified_at' => now(),
-        ]);
+        $divisions = ['ঢাকা', 'চট্টগ্রাম', 'রাজশাহী', 'খুলনা', 'সিলেট', 'বরিশাল', 'ময়মনসিংহ', 'রংপুর'];
 
-        Biodata::create([
-            'user_id' => $groom2->id,
-            'biodata_type' => 'groom',
-            'date_of_birth' => '1995-08-22',
-            'marital_status' => 'unmarried',
-            'religion' => 'ইসলাম',
-            'height' => "৫'১০\"",
-            'weight' => '৭৫ কেজি',
-            'complexion' => 'উজ্জ্বল ফর্সা',
-            'blood_group' => 'B+',
-            'division' => 'চট্টগ্রাম',
-            'district' => 'চট্টগ্রাম',
-            'upazila' => 'হাটহাজারী',
-            'full_address' => 'হাটহাজারী, চট্টগ্রাম',
-            'permanent_division' => 'চট্টগ্রাম',
-            'permanent_district' => 'চট্টগ্রাম',
-            'permanent_upazila' => 'হাটহাজারী',
-            'permanent_address' => 'হাটহাজারী, চট্টগ্রাম',
-            'education_level' => 'স্নাতক (অনার্স)',
-            'education_detail' => 'ব্যবসায় প্রশাসন, চট্টগ্রাম বিশ্ববিদ্যালয়',
-            'profession' => 'ব্যাংকার',
-            'monthly_income' => '৫৫,০০০ টাকা',
-            'father_name' => 'আবদুল আহমেদ',
-            'father_profession' => 'অবসরপ্রাপ্ত সরকারি কর্মকর্তা',
-            'mother_name' => 'রহিমা আক্তার',
-            'mother_profession' => 'গৃহিণী',
-            'brothers' => 2,
-            'sisters' => 1,
-            'about_me' => 'আমি একজন ব্যাংকার। ইসলামিক ফিন্যান্সে বিশেষভাবে আগ্রহী। নিয়মিত নামাজ আদায় করি। খেলাধুলা ও দানশীলতায় বিশ্বাসী।',
-            'contact_person' => 'আবদুল আহমেদ',
-            'contact_relation' => 'বাবা',
-            'partner_age_range' => '২০-২৫ বছর',
-            'partner_complexion' => 'যেকোনো',
-            'partner_height' => "৫'০\" - ৫'৪\"",
-            'partner_district' => 'চট্টগ্রাম',
-            'partner_education' => 'ন্যূনতম এইচএসসি',
-            'partner_profession' => 'যেকোনো',
-            'qualities' => 'পর্দানশীন, নম্র, ধৈর্যশীল',
-            'is_published' => true,
-        ]);
+        $districtsByDivision = [
+            'ঢাকা'        => ['ঢাকা', 'গাজীপুর', 'নারায়ণগঞ্জ', 'মুন্সিগঞ্জ', 'মানিকগঞ্জ', 'নরসিংদী', 'টাঙ্গাইল'],
+            'চট্টগ্রাম'   => ['চট্টগ্রাম', 'কক্সবাজার', 'কুমিল্লা', 'ফেনী', 'ব্রাহ্মণবাড়িয়া', 'নোয়াখালী', 'চাঁদপুর'],
+            'রাজশাহী'     => ['রাজশাহী', 'নাটোর', 'নওগাঁ', 'চাঁপাইনবাবগঞ্জ', 'সিরাজগঞ্জ', 'বগুড়া', 'পাবনা'],
+            'খুলনা'       => ['খুলনা', 'যশোর', 'কুষ্টিয়া', 'বাগেরহাট', 'সাতক্ষীরা', 'ঝিনাইদহ', 'মেহেরপুর'],
+            'সিলেট'       => ['সিলেট', 'মৌলভীবাজার', 'হবিগঞ্জ', 'সুনামগঞ্জ'],
+            'বরিশাল'      => ['বরিশাল', 'পটুয়াখালী', 'ভোলা', 'ঝালকাঠি', 'পিরোজপুর', 'বরগুনা'],
+            'ময়মনসিংহ'   => ['ময়মনসিংহ', 'জামালপুর', 'শেরপুর', 'নেত্রকোণা'],
+            'রংপুর'       => ['রংপুর', 'দিনাজপুর', 'গাইবান্ধা', 'নীলফামারী', 'লালমনিরহাট', 'কুড়িগ্রাম'],
+        ];
 
-        // Groom 3
-        $groom3 = User::create([
-            'name' => 'রাকিব হাসান',
-            'email' => 'rakib@demo.com',
-            'phone' => '01611223344',
-            'password' => bcrypt('password'),
-            'role' => 'user',
-            'status' => 'approved',
-            'email_verified_at' => now(),
-        ]);
+        $upazilas = ['সদর', 'পৌরসভা', 'উত্তর', 'দক্ষিণ', 'পূর্ব', 'পশ্চিম', 'মধ্যম'];
 
-        Biodata::create([
-            'user_id' => $groom3->id,
-            'biodata_type' => 'groom',
-            'date_of_birth' => '1993-01-10',
-            'marital_status' => 'divorced',
-            'religion' => 'ইসলাম',
-            'height' => "৫'৭\"",
-            'weight' => '৭০ কেজি',
-            'complexion' => 'শ্যামলা',
-            'blood_group' => 'O+',
-            'division' => 'রাজশাহী',
-            'district' => 'রাজশাহী',
-            'upazila' => 'বোয়ালিয়া',
-            'full_address' => 'বোয়ালিয়া, রাজশাহী সিটি',
-            'permanent_division' => 'রাজশাহী',
-            'permanent_district' => 'রাজশাহী',
-            'permanent_upazila' => 'বোয়ালিয়া',
-            'permanent_address' => 'রাজশাহী সদর',
-            'education_level' => 'পিএইচডি',
-            'education_detail' => 'পদার্থবিদ্যা, রাজশাহী বিশ্ববিদ্যালয়',
-            'profession' => 'বিশ্ববিদ্যালয় শিক্ষক',
-            'monthly_income' => '৬৫,০০০ টাকা',
-            'father_name' => 'মোঃ হাসান আলী',
-            'father_profession' => 'শিক্ষক',
-            'mother_name' => 'সালমা খাতুন',
-            'mother_profession' => 'গৃহিণী',
-            'brothers' => 0,
-            'sisters' => 3,
-            'about_me' => 'বিশ্ববিদ্যালয়ে শিক্ষকতা করছি। গবেষণা ও লেখালেখি আমার প্রধান কাজ। আগের বিয়ে পারিবারিক কারণে ভেঙ্গে গেছে। নতুন করে জীবন শুরু করতে চাই।',
-            'contact_person' => 'সালমা খাতুন',
-            'contact_relation' => 'মা',
-            'partner_age_range' => '২৫-৩২ বছর',
-            'partner_complexion' => 'যেকোনো',
-            'partner_height' => "৫'০\" - ৫'৬\"",
-            'partner_district' => 'রাজশাহী বা ঢাকা',
-            'partner_education' => 'ন্যূনতম স্নাতক',
-            'partner_profession' => 'শিক্ষকতা বা যেকোনো',
-            'qualities' => 'বুদ্ধিমতী, ধৈর্যশীল, সহানুভূতিশীল',
-            'is_published' => true,
-        ]);
+        $groomProfessions = [
+            'সফটওয়্যার ইঞ্জিনিয়ার', 'ব্যাংকার', 'বিশ্ববিদ্যালয় শিক্ষক', 'চার্টার্ড একাউন্ট্যান্ট',
+            'ডাক্তার (MBBS)', 'সরকারি কর্মকর্তা (BCS)', 'ব্যবসায়ী', 'আইনজীবী', 'প্রকৌশলী (BUET)',
+            'কৃষিবিদ', 'পুলিশ অফিসার', 'সেনা অফিসার', 'ফার্মাসিস্ট', 'জার্নালিস্ট', 'আর্কিটেক্ট',
+            'গ্রাফিক ডিজাইনার', 'মার্চেন্ট নেভি অফিসার', 'পাইলট', 'ডেন্টিস্ট', 'ভেটেরিনারি ডাক্তার',
+        ];
 
-        // Bride 1
-        $bride1 = User::create([
-            'name' => 'ফাতিমা জান্নাত',
-            'email' => 'fatima@demo.com',
-            'phone' => '01855667788',
-            'password' => bcrypt('password'),
-            'role' => 'user',
-            'status' => 'approved',
-            'email_verified_at' => now(),
-        ]);
+        $brideProfessions = [
+            'শিক্ষিকা', 'ডাক্তার (MBBS)', 'ফার্মাসিস্ট', 'ছাত্রী (অনার্স চলমান)', 'নার্স',
+            'ব্যাংকার', 'গৃহিণী', 'সরকারি কর্মকর্তা (BCS)', 'সফটওয়্যার ইঞ্জিনিয়ার',
+            'ডায়েটিশিয়ান', 'আইনজীবী', 'কুরআন শিক্ষিকা', 'ব্যবসায়ী', 'গার্মেন্টস কর্মকর্তা',
+            'এনজিও কর্মী', 'ডিজাইনার', 'মিডিয়া প্রফেশনাল', 'সাইকোলজিস্ট', 'আর্কিটেক্ট', 'ফটোগ্রাফার',
+        ];
 
-        Biodata::create([
-            'user_id' => $bride1->id,
-            'biodata_type' => 'bride',
-            'date_of_birth' => '1999-06-20',
-            'marital_status' => 'unmarried',
-            'religion' => 'ইসলাম',
-            'height' => "৫'৩\"",
-            'weight' => '৫২ কেজি',
-            'complexion' => 'উজ্জ্বল ফর্সা',
-            'blood_group' => 'A+',
-            'division' => 'ঢাকা',
-            'district' => 'ঢাকা',
-            'upazila' => 'মিরপুর',
-            'full_address' => 'মিরপুর ১০, ঢাকা',
-            'permanent_division' => 'সিলেট',
-            'permanent_district' => 'সিলেট',
-            'permanent_upazila' => 'বিশ্বনাথ',
-            'permanent_address' => 'বিশ্বনাথ, সিলেট',
-            'education_level' => 'স্নাতকোত্তর (মাস্টার্স)',
-            'education_detail' => 'ইংরেজি সাহিত্য, ঢাকা বিশ্ববিদ্যালয়',
-            'profession' => 'শিক্ষিকা',
-            'monthly_income' => '৩৫,০০০ টাকা',
-            'father_name' => 'মোঃ জসিম উদ্দিন',
-            'father_profession' => 'ডাক্তার',
-            'mother_name' => 'নাসরিন সুলতানা',
-            'mother_profession' => 'গৃহিণী',
-            'brothers' => 2,
-            'sisters' => 0,
-            'about_me' => 'আমি একজন শিক্ষিকা। ইসলামী জীবনযাপনে অভ্যস্ত। হিফজ সম্পন্ন করেছি। রান্নাবান্না ও সেলাই আমার শখ। পরিবারের সাথে সময় কাটাতে ভালোবাসি।',
-            'contact_person' => 'মোঃ জসিম উদ্দিন',
-            'contact_relation' => 'বাবা',
-            'partner_age_range' => '২৬-৩২ বছর',
-            'partner_complexion' => 'ফর্সা বা উজ্জ্বল শ্যামলা',
-            'partner_height' => "৫'৬\" - ৫'১০\"",
-            'partner_district' => 'ঢাকা বা চট্টগ্রাম',
-            'partner_education' => 'ন্যূনতম স্নাতক',
-            'partner_profession' => 'ডাক্তার বা ইঞ্জিনিয়ার',
-            'qualities' => 'দ্বীনদার, সৎ, দায়িত্ববান, পরিবারপ্রিয়',
-            'is_published' => true,
-        ]);
+        $educationLevels = [
+            'এসএসসি', 'এইচএসসি', 'স্নাতক (অনার্স)', 'স্নাতকোত্তর (মাস্টার্স)', 'পিএইচডি',
+            'এমবিবিএস', 'বিডিএস', 'ইঞ্জিনিয়ারিং (বিএসসি)', 'হাফেজ', 'আলেম (দাওরা)',
+        ];
 
-        // Bride 2
-        $bride2 = User::create([
-            'name' => 'সাদিয়া রহমান',
-            'email' => 'sadia@demo.com',
-            'phone' => '01966778899',
-            'password' => bcrypt('password'),
-            'role' => 'user',
-            'status' => 'approved',
-            'email_verified_at' => now(),
-        ]);
+        $educationDetails = [
+            'কম্পিউটার সায়েন্স, বুয়েট', 'ব্যবসায় প্রশাসন, ঢাকা বিশ্ববিদ্যালয়',
+            'ইংরেজি সাহিত্য, রাজশাহী বিশ্ববিদ্যালয়', 'চিকিৎসাবিজ্ঞান, ঢাকা মেডিকেল কলেজ',
+            'পদার্থবিজ্ঞান, চট্টগ্রাম বিশ্ববিদ্যালয়', 'আইন, জগন্নাথ বিশ্ববিদ্যালয়',
+            'ফার্মেসি, জাহাঙ্গীরনগর বিশ্ববিদ্যালয়', 'হিসাববিজ্ঞান, খুলনা বিশ্ববিদ্যালয়',
+            'সিভিল ইঞ্জিনিয়ারিং, বুয়েট', 'গণিত, সিলেট শাহজালাল বিশ্ববিদ্যালয়',
+            'কৃষি বিজ্ঞান, বাংলাদেশ কৃষি বিশ্ববিদ্যালয়', 'লোক প্রশাসন, ঢাকা বিশ্ববিদ্যালয়',
+        ];
 
-        Biodata::create([
-            'user_id' => $bride2->id,
-            'biodata_type' => 'bride',
-            'date_of_birth' => '2000-11-05',
-            'marital_status' => 'unmarried',
-            'religion' => 'ইসলাম',
-            'height' => "৫'৪\"",
-            'weight' => '৫৫ কেজি',
-            'complexion' => 'ফর্সা',
-            'blood_group' => 'B+',
-            'division' => 'খুলনা',
-            'district' => 'খুলনা',
-            'upazila' => 'সোনাডাঙ্গা',
-            'full_address' => 'সোনাডাঙ্গা, খুলনা',
-            'permanent_division' => 'খুলনা',
-            'permanent_district' => 'যশোর',
-            'permanent_upazila' => 'যশোর সদর',
-            'permanent_address' => 'যশোর সদর, যশোর',
-            'education_level' => 'স্নাতক (অনার্স)',
-            'education_detail' => 'গণিত, খুলনা বিশ্ববিদ্যালয়',
-            'profession' => 'ছাত্রী (মাস্টার্স চলমান)',
-            'monthly_income' => 'প্রযোজ্য নয়',
-            'father_name' => 'আবদুর রহমান',
-            'father_profession' => 'ব্যবসায়ী',
-            'mother_name' => 'হাসিনা বেগম',
-            'mother_profession' => 'শিক্ষিকা',
-            'brothers' => 1,
-            'sisters' => 1,
-            'about_me' => 'বর্তমানে মাস্টার্সে পড়ছি। কুরআন শিক্ষা, হ্যান্ডিক্র্যাফট ও ফটোগ্রাফি আমার আগ্রহের বিষয়। পরিবারের বড় মেয়ে হওয়ায় দায়িত্ববোধ আমার মধ্যে সহজাত।',
-            'contact_person' => 'আবদুর রহমান',
-            'contact_relation' => 'বাবা',
-            'partner_age_range' => '২৫-৩০ বছর',
-            'partner_complexion' => 'যেকোনো',
-            'partner_height' => "৫'৬\" - ৬'০\"",
-            'partner_district' => 'যেকোনো',
-            'partner_education' => 'ন্যূনতম স্নাতক',
-            'partner_profession' => 'চাকরিজীবী বা ব্যবসায়ী',
-            'qualities' => 'নামাজি, সৎ, ভদ্র, কুরআন পড়তে পারেন',
-            'is_published' => true,
-        ]);
+        $incomes = [
+            '২০,০০০ টাকা', '২৫,০০০ টাকা', '৩০,০০০ টাকা', '৩৫,০০০ টাকা', '৪০,০০০ টাকা',
+            '৪৫,০০০ টাকা', '৫০,০০০ টাকা', '৬০,০০০ টাকা', '৭০,০০০ টাকা', '৮০,০০০ টাকা',
+            '৯০,০০০ টাকা', '১,০০,০০০ টাকা', '১,২০,০০০ টাকা', '১,৫০,০০০ টাকা', 'প্রযোজ্য নয়',
+        ];
 
-        // Bride 3
-        $bride3 = User::create([
-            'name' => 'মারিয়াম আক্তার',
-            'email' => 'mariam@demo.com',
-            'phone' => '01511223355',
-            'password' => bcrypt('password'),
-            'role' => 'user',
-            'status' => 'approved',
-            'email_verified_at' => now(),
-        ]);
+        $bloodGroups = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
 
-        Biodata::create([
-            'user_id' => $bride3->id,
-            'biodata_type' => 'bride',
-            'date_of_birth' => '1998-02-14',
-            'marital_status' => 'unmarried',
-            'religion' => 'ইসলাম',
-            'height' => "৫'২\"",
-            'weight' => '৫০ কেজি',
-            'complexion' => 'উজ্জ্বল শ্যামলা',
-            'blood_group' => 'AB+',
-            'division' => 'সিলেট',
-            'district' => 'সিলেট',
-            'upazila' => 'সিলেট সদর',
-            'full_address' => 'আম্বরখানা, সিলেট',
-            'permanent_division' => 'সিলেট',
-            'permanent_district' => 'মৌলভীবাজার',
-            'permanent_upazila' => 'মৌলভীবাজার সদর',
-            'permanent_address' => 'মৌলভীবাজার সদর',
-            'education_level' => 'হাফেজ',
-            'education_detail' => 'হিফজুল কুরআন সম্পন্ন, দাখিল পাস',
-            'profession' => 'কুরআন শিক্ষিকা',
-            'monthly_income' => '১৫,০০০ টাকা',
-            'father_name' => 'মোঃ ইব্রাহীম',
-            'father_profession' => 'মাদ্রাসা শিক্ষক',
-            'mother_name' => 'আয়েশা সিদ্দিকা',
-            'mother_profession' => 'গৃহিণী',
-            'brothers' => 3,
-            'sisters' => 2,
-            'about_me' => 'আমি হাফেজা। ছোটবেলা থেকেই কুরআনের সাথে গভীর সম্পর্ক। বর্তমানে মাদ্রাসায় কুরআন শেখাচ্ছি। সাদাসিধে জীবনযাপনে অভ্যস্ত।',
-            'contact_person' => 'মোঃ ইব্রাহীম',
-            'contact_relation' => 'বাবা',
-            'partner_age_range' => '২৫-৩৫ বছর',
-            'partner_complexion' => 'যেকোনো',
-            'partner_height' => "৫'৫\" এর বেশি",
-            'partner_district' => 'সিলেট বা ঢাকা',
-            'partner_education' => 'আলেম বা ন্যূনতম এইচএসসি',
-            'partner_profession' => 'যেকোনো হালাল পেশা',
-            'qualities' => 'দাড়িওয়ালা, পাঁচ ওয়াক্ত নামাজি, কুরআন পড়তে পারেন',
-            'is_published' => true,
-        ]);
+        $complexions = ['ফর্সা', 'উজ্জ্বল ফর্সা', 'উজ্জ্বল শ্যামলা', 'শ্যামলা', 'কালো'];
 
-        // Groom 4 (Hindu)
-        $groom4 = User::create([
-            'name' => 'সুব্রত দাস',
-            'email' => 'subrata@demo.com',
-            'phone' => '01411223366',
-            'password' => bcrypt('password'),
-            'role' => 'user',
-            'status' => 'approved',
-            'email_verified_at' => now(),
-        ]);
+        $groomHeights = ["৫'৫\"", "৫'৬\"", "৫'৭\"", "৫'৮\"", "৫'৯\"", "৫'১০\"", "৬'০\"", "৬'১\""];
+        $brideHeights = ["৫'০\"", "৫'১\"", "৫'২\"", "৫'৩\"", "৫'৪\"", "৫'৫\"", "৫'৬\""];
 
-        Biodata::create([
-            'user_id' => $groom4->id,
-            'biodata_type' => 'groom',
-            'date_of_birth' => '1996-12-01',
-            'marital_status' => 'unmarried',
-            'religion' => 'হিন্দু',
-            'height' => "৫'৯\"",
-            'weight' => '৭২ কেজি',
-            'complexion' => 'শ্যামলা',
-            'blood_group' => 'O-',
-            'division' => 'বরিশাল',
-            'district' => 'বরিশাল',
-            'upazila' => 'বরিশাল সদর',
-            'full_address' => 'বরিশাল সদর',
-            'permanent_division' => 'বরিশাল',
-            'permanent_district' => 'বরিশাল',
-            'permanent_upazila' => 'বরিশাল সদর',
-            'permanent_address' => 'বরিশাল সদর',
-            'education_level' => 'স্নাতকোত্তর (মাস্টার্স)',
-            'education_detail' => 'হিসাববিজ্ঞান, বরিশাল বিশ্ববিদ্যালয়',
-            'profession' => 'চার্টার্ড একাউন্ট্যান্ট',
-            'monthly_income' => '৯০,০০০ টাকা',
-            'father_name' => 'বিমল দাস',
-            'father_profession' => 'ব্যবসায়ী',
-            'mother_name' => 'রেখা দাস',
-            'mother_profession' => 'গৃহিণী',
-            'brothers' => 1,
-            'sisters' => 0,
-            'about_me' => 'আমি একজন চার্টার্ড একাউন্ট্যান্ট। পেশাগত জীবনে সফল। সঙ্গীত ও সাহিত্যে আগ্রহী। পারিবারিক মূল্যবোধে বিশ্বাসী।',
-            'contact_person' => 'বিমল দাস',
-            'contact_relation' => 'বাবা',
-            'partner_age_range' => '২২-২৮ বছর',
-            'partner_complexion' => 'ফর্সা',
-            'partner_height' => "৫'১\" - ৫'৫\"",
-            'partner_district' => 'যেকোনো',
-            'partner_education' => 'ন্যূনতম স্নাতক',
-            'partner_profession' => 'যেকোনো',
-            'qualities' => 'শিক্ষিত, সংস্কৃতিবান, পরিবারপ্রিয়',
-            'is_published' => true,
-        ]);
+        $groomWeights = ['৫৮ কেজি', '৬২ কেজি', '৬৫ কেজি', '৬৮ কেজি', '৭০ কেজি', '৭৫ কেজি', '৭৮ কেজি', '৮০ কেজি'];
+        $brideWeights = ['৪৫ কেজি', '৪৮ কেজি', '৫০ কেজি', '৫২ কেজি', '৫৫ কেজি', '৫৮ কেজि', '৬০ কেজি'];
 
-        // Bride 4
-        $bride4 = User::create([
-            'name' => 'নুসরাত জাহান',
-            'email' => 'nusrat@demo.com',
-            'phone' => '01322334455',
-            'password' => bcrypt('password'),
-            'role' => 'user',
-            'status' => 'approved',
-            'email_verified_at' => now(),
-        ]);
+        $religions = ['ইসলাম', 'ইসলাম', 'ইসলাম', 'ইসলাম', 'হিন্দু', 'হিন্দু', 'খ্রিস্টান'];
 
-        Biodata::create([
-            'user_id' => $bride4->id,
-            'biodata_type' => 'bride',
-            'date_of_birth' => '2001-04-18',
-            'marital_status' => 'unmarried',
-            'religion' => 'ইসলাম',
-            'height' => "৫'৫\"",
-            'weight' => '৫৮ কেজি',
-            'complexion' => 'ফর্সা',
-            'blood_group' => 'A-',
-            'division' => 'ঢাকা',
-            'district' => 'গাজীপুর',
-            'upazila' => 'টঙ্গী',
-            'full_address' => 'টঙ্গী, গাজীপুর',
-            'permanent_division' => 'ময়মনসিংহ',
-            'permanent_district' => 'ময়মনসিংহ',
-            'permanent_upazila' => 'ময়মনসিংহ সদর',
-            'permanent_address' => 'ময়মনসিংহ সদর',
-            'education_level' => 'স্নাতক (অনার্স)',
-            'education_detail' => 'ফার্মেসি, জাহাঙ্গীরনগর বিশ্ববিদ্যালয়',
-            'profession' => 'ফার্মাসিস্ট',
-            'monthly_income' => '৪০,০০০ টাকা',
-            'father_name' => 'মোঃ শাহিদুল ইসলাম',
-            'father_profession' => 'প্রকৌশলী',
-            'mother_name' => 'শামীমা আক্তার',
-            'mother_profession' => 'ডাক্তার',
-            'brothers' => 0,
-            'sisters' => 1,
-            'about_me' => 'আমি একজন ফার্মাসিস্ট। স্বাস্থ্যসচেতন ও সক্রিয় জীবনযাপন করি। পরিবারের একমাত্র মেয়ে হওয়ায় পরিবারের সাথে খুব ঘনিষ্ঠ।',
-            'contact_person' => 'শামীমা আক্তার',
-            'contact_relation' => 'মা',
-            'partner_age_range' => '২৫-৩০ বছর',
-            'partner_complexion' => 'উজ্জ্বল ফর্সা বা ফর্সা',
-            'partner_height' => "৫'৮\" এর বেশি",
-            'partner_district' => 'ঢাকা',
-            'partner_education' => 'ন্যূনতম স্নাতক',
-            'partner_profession' => 'ডাক্তার, ইঞ্জিনিয়ার বা ব্যবসায়ী',
-            'qualities' => 'সৎ, উচ্চাকাঙ্ক্ষী, পরিশ্রমী',
-            'is_published' => true,
-        ]);
+        $maritalStatuses = ['unmarried', 'unmarried', 'unmarried', 'unmarried', 'divorced', 'widowed'];
 
-        // ─── Pending Users (waiting for admin approval) ────────────────
+        $fatherProfessions = [
+            'ব্যবসায়ী', 'সরকারি কর্মকর্তা', 'শিক্ষক', 'ডাক্তার', 'প্রকৌশলী',
+            'আইনজীবী', 'কৃষক', 'অবসরপ্রাপ্ত সরকারি কর্মকর্তা', 'ব্যাংকার', 'মাদ্রাসা শিক্ষক',
+        ];
 
-        $pending1 = User::create([
-            'name' => 'জাহিদ হাসান',
-            'email' => 'jahid@demo.com',
-            'phone' => '01655443322',
-            'password' => bcrypt('password'),
-            'role' => 'user',
-            'status' => 'pending',
-            'email_verified_at' => now(),
-        ]);
+        $motherProfessions = ['গৃহিণী', 'শিক্ষিকা', 'গৃহিণী', 'গৃহিণী', 'ডাক্তার', 'গৃহিণী', 'ব্যবসায়ী', 'গৃহিণী'];
 
-        $pending2 = User::create([
-            'name' => 'তাসনিম ফেরদৌস',
-            'email' => 'tasnim@demo.com',
-            'phone' => '01944332211',
-            'password' => bcrypt('password'),
-            'role' => 'user',
-            'status' => 'pending',
-            'email_verified_at' => now(),
-        ]);
+        $contactRelations = ['বাবা', 'মা', 'ভাই', 'চাচা', 'মামা'];
 
-        // ─── Proposals ─────────────────────────────────────────────────
+        $whyPreferTexts = [
+            'আপনার বায়োডাটা পড়ে খুবই ভালো লেগেছে। শিক্ষিত, দ্বীনদার এবং পরিবারপ্রিয় — আমার পরিবারও এমন একজন খুঁজছেন। আশা করি আমরা একে অপরের জীবনসঙ্গী হতে পারব।',
+            'আপনার পেশাগত যোগ্যতা এবং পারিবারিক মূল্যবোধ আমাকে আকৃষ্ট করেছে। আমি বিশ্বাস করি আমরা একসাথে সুন্দর ভবিষ্যৎ গড়তে পারব।',
+            'আপনার ধর্মীয় মূল্যবোধ ও শিক্ষাগত যোগ্যতা দেখে অত্যন্ত মুগ্ধ হয়েছি। সৎ, নামাজি এবং দায়িত্ববান জীবনসঙ্গী চাই, আপনি সেই মানদণ্ড পূরণ করেন।',
+            'আপনার পরিবার ও আমার পরিবারের মধ্যে অনেক মিল রয়েছে। একই অঞ্চলের হওয়ায় সংস্কৃতিগত মিল আছে। আপনার গুণাবলী আমাকে আকৃষ্ট করেছে।',
+            'আমি একজন দ্বীনদার, শিক্ষিত ও উপার্জনশীল পাত্রী খুঁজছি। আপনার বায়োডাটা পড়ে মনে হয়েছে আপনি সেই মানের। পরিবারের সম্মতিতে এগিয়ে যেতে চাই।',
+            'আপনার সরলতা ও ইসলামী মূল্যবোধ আমাকে অনুপ্রাণিত করেছে। জীবনসঙ্গী হিসেবে আপনাকে পাওয়া আমার জন্য সৌভাগ্যের হবে বলে মনে করি।',
+            'আপনার শিক্ষা ও পেশাগত দক্ষতা দেখে প্রভাবিত হয়েছি। উভয়ের পরিবারের সম্মতি নিয়ে সামনে এগিয়ে যাওয়ার ইচ্ছে পোষণ করি।',
+            'আপনার প্রোফাইল দেখে মনে হয়েছে আপনি সত্যিই একজন গুণবতী মানুষ। আমার পরিবার ও আমি এই সম্পর্ক নিয়ে আশাবাদী।',
+        ];
 
-        // Arif → Fatima (pending)
-        Proposal::create([
-            'sender_id' => $groom1->id,
-            'receiver_id' => $bride1->id,
-            'biodata_id' => $bride1->biodata->id,
-            'why_prefer' => 'আপনার বায়োডাটা পড়ে খুবই ভালো লেগেছে। শিক্ষিত, দ্বীনদার এবং পরিবারপ্রিয় — আমার পরিবারও এমন একজন পাত্রী খুঁজছেন। আশা করি আমরা একে অপরের জীবনসঙ্গী হতে পারি।',
-            'kabin_nama_expectations' => 'পরিবারের সম্মতিতে নির্ধারণ করা হবে',
-            'gold_jewelry_expectations' => 'ন্যূনতম ৫ ভরি স্বর্ণ',
-            'status' => 'pending',
-        ]);
+        $kabinExpectations = [
+            'পারিবারিক সম্মতিতে নির্ধারণ করা হবে', '৩ লক্ষ টাকা', '৫ লক্ষ টাকা',
+            '৭ লক্ষ টাকা', '১০ লক্ষ টাকা', 'শরীয়াহ অনুসারে', 'আলোচনা সাপেক্ষে',
+            'পারস্পরিক সম্মতিতে', '২ লক্ষ টাকা', '১৫ লক্ষ টাকা',
+        ];
 
-        // Tanvir → Sadia (approved)
-        $proposal2 = Proposal::create([
-            'sender_id' => $groom2->id,
-            'receiver_id' => $bride2->id,
-            'biodata_id' => $bride2->biodata->id,
-            'why_prefer' => 'আপনার পরিবার ও আমার পরিবারের মধ্যে অনেক মিল রয়েছে। আমিও খুলনার মানুষ, তাই সংস্কৃতিগত মিল থাকবে। আপনার শিক্ষা ও গুণাবলী আমাকে আকৃষ্ট করেছে।',
-            'kabin_nama_expectations' => '৫ লক্ষ টাকা',
-            'gold_jewelry_expectations' => 'পারস্পরিক আলোচনা সাপেক্ষে',
-            'status' => 'approved',
-        ]);
+        $goldExpectations = [
+            'ন্যূনতম ৫ ভরি স্বর্ণ', 'পারস্পরিক আলোচনা সাপেক্ষে', '৮ ভরি স্বর্ণ',
+            'সামর্থ্য অনুযায়ী', 'পরিবারের সিদ্ধান্ত অনুযায়ী', '১০ ভরি স্বর্ণ',
+            '৩ ভরি স্বর্ণ', 'স্বর্ণ প্রযোজ্য নয়', '৬ ভরি স্বর্ণ', 'আলোচনা সাপেক্ষে',
+        ];
 
-        // Rakib → Mariam (approved, chat allowed)
-        $proposal3 = Proposal::create([
-            'sender_id' => $groom3->id,
-            'receiver_id' => $bride3->id,
-            'biodata_id' => $bride3->biodata->id,
-            'why_prefer' => 'আপনি হাফেজা — এটি আমার কাছে অত্যন্ত সম্মানের। আমিও দ্বীনের পথে চলতে চাই এবং একজন দ্বীনদার জীবনসঙ্গিনী খুঁজছি। আপনার সরলতা ও ইসলামী মূল্যবোধ আমাকে অনুপ্রাণিত করেছে।',
-            'kabin_nama_expectations' => 'শরীয়াহ অনুসারে',
-            'gold_jewelry_expectations' => 'সামর্থ্য অনুযায়ী',
-            'status' => 'approved',
-        ]);
+        $proposalStatuses = ['pending', 'pending', 'approved', 'approved', 'rejected', 'chat_allowed'];
 
-        // Groom1 → Nusrat (rejected)
-        Proposal::create([
-            'sender_id' => $groom1->id,
-            'receiver_id' => $bride4->id,
-            'biodata_id' => $bride4->biodata->id,
-            'why_prefer' => 'আপনার প্রোফাইল দেখে ভালো লেগেছে। পেশাগত দিক থেকে আমরা মিলে যাই।',
-            'kabin_nama_expectations' => 'আলোচনা সাপেক্ষে',
-            'gold_jewelry_expectations' => 'পরিবারের সিদ্ধান্ত অনুযায়ী',
-            'status' => 'rejected',
-            'admin_note' => 'পাত্রীর পরিবার এই মুহূর্তে সম্মত নন।',
-        ]);
+        $aboutMeGroom = [
+            'আমি একজন পেশাদার মানুষ। নিজের কাজে নিষ্ঠাবান। ইসলামী জীবনযাপনে অভ্যস্ত। পরিবারকে সর্বোচ্চ গুরুত্ব দিই।',
+            'নিয়মিত নামাজ আদায় করি। সৎ ও পরিশ্রমী হিসেবে পরিচিত। ভ্রমণ ও বই পড়া আমার শখ। পরিবার ও সমাজের প্রতি দায়িত্ববান।',
+            'আমি একজন ধর্মপরায়ণ মানুষ। পেশাগত জীবনে সফল। পরিবারের সবার সাথে ভালো সম্পর্ক বজায় রাখি।',
+            'শান্তিপূর্ণ পারিবারিক জীবনে বিশ্বাসী। আমার স্ত্রীকে সর্বোচ্চ সম্মান দেওয়ার চেষ্টা করব। নিজেকে সর্বদা উন্নত করার চেষ্টা করি।',
+            'কর্মঠ ও দায়িত্বশীল। পারিবারিক সুখে বিশ্বাসী। একটি সুন্দর ইসলামী পরিবার গড়ে তুলতে চাই।',
+        ];
 
-        // Groom4 → Bride2 (pending)
-        Proposal::create([
-            'sender_id' => $groom4->id,
-            'receiver_id' => $bride2->id,
-            'biodata_id' => $bride2->biodata->id,
-            'why_prefer' => 'আপনার শিক্ষাগত যোগ্যতা ও গুণাবলী দেখে খুবই প্রভাবিত হয়েছি। আমি বিশ্বাস করি আমরা একে অপরের পরিপূরক হতে পারি।',
-            'kabin_nama_expectations' => 'পারস্পরিক সম্মতিতে',
-            'gold_jewelry_expectations' => '৮ ভরি স্বর্ণ',
-            'status' => 'pending',
-        ]);
+        $aboutMeBride = [
+            'আমি একজন শিক্ষিত ও ধর্মপরায়ণ নারী। পরিবারের প্রতি দায়িত্বশীল। রান্নাবান্না ও সেলাই পছন্দ করি।',
+            'ইসলামী জীবনযাপনে অভ্যস্ত। নিজেকে সর্বদা উন্নত করার চেষ্টা করি। পরিবারকে সর্বোচ্চ গুরুত্ব দিই।',
+            'শান্তিপূর্ণ পারিবারিক জীবনে বিশ্বাসী। একটি সুখী পরিবার গড়ে তোলাই আমার লক্ষ্য।',
+            'নম্র ও বিনয়ী। পরিবার ও সমাজের প্রতি দায়িত্ববান। কুরআন তেলাওয়াত করি নিয়মিত।',
+            'শিক্ষিত ও স্বাবলম্বী। নিজের পেশায় নিষ্ঠাবান। সংসারজীবনে সম্পূর্ণ নিবেদিত হতে প্রস্তুত।',
+        ];
 
-        // ─── Chat Room & Messages (for proposal3 — chat_allowed) ─────
+        // ─── Create 50 Grooms ───────────────────────────────────────────
 
-        $chatRoom = ChatRoom::create([
-            'proposal_id' => $proposal3->id,
-            'user_one_id' => $groom3->id,
-            'user_two_id' => $bride3->id,
-            'is_active' => true,
-        ]);
+        $groomUsers = [];
+        foreach ($groomNames as $i => $name) {
+            $division = $divisions[array_rand($divisions)];
+            $district = $districtsByDivision[$division][array_rand($districtsByDivision[$division])];
+            $permDivision = $divisions[array_rand($divisions)];
+            $permDistrict = $districtsByDivision[$permDivision][array_rand($districtsByDivision[$permDivision])];
 
-        Message::create([
-            'chat_room_id' => $chatRoom->id,
-            'sender_id' => $groom3->id,
-            'body' => 'আসসালামু আলাইকুম, কেমন আছেন?',
-            'is_read' => true,
-            'created_at' => now()->subHours(5),
-        ]);
+            $user = User::create([
+                'name'             => $name,
+                'email'            => 'groom' . ($i + 1) . '@demo.com',
+                'phone'            => '017' . str_pad(rand(10000000, 99999999), 8, '0', STR_PAD_LEFT),
+                'password'         => bcrypt('password'),
+                'role'             => 'user',
+                'status'           => $i < 45 ? 'approved' : 'pending',
+                'email_verified_at' => now(),
+            ]);
 
-        Message::create([
-            'chat_room_id' => $chatRoom->id,
-            'sender_id' => $bride3->id,
-            'body' => 'ওয়ালাইকুম আসসালাম, আলহামদুলিল্লাহ ভালো আছি। আপনি কেমন আছেন?',
-            'is_read' => true,
-            'created_at' => now()->subHours(4)->subMinutes(45),
-        ]);
+            $fatherName = $fatherProfessions[array_rand($fatherProfessions)];
+            $year = rand(1990, 2000);
+            $month = rand(1, 12);
+            $day = rand(1, 28);
 
-        Message::create([
-            'chat_room_id' => $chatRoom->id,
-            'sender_id' => $groom3->id,
-            'body' => 'আলহামদুলিল্লাহ, আমিও ভালো আছি। আপনার বায়োডাটা পড়ে খুবই ভালো লেগেছে। আপনি হাফেজা — এটি সত্যিই প্রশংসনীয়।',
-            'is_read' => true,
-            'created_at' => now()->subHours(4)->subMinutes(30),
-        ]);
+            Biodata::create([
+                'user_id'              => $user->id,
+                'biodata_type'         => 'groom',
+                'date_of_birth'        => sprintf('%04d-%02d-%02d', $year, $month, $day),
+                'marital_status'       => $maritalStatuses[array_rand($maritalStatuses)],
+                'religion'             => $religions[array_rand($religions)],
+                'height'               => $groomHeights[array_rand($groomHeights)],
+                'weight'               => $groomWeights[array_rand($groomWeights)],
+                'complexion'           => $complexions[array_rand($complexions)],
+                'blood_group'          => $bloodGroups[array_rand($bloodGroups)],
+                'division'             => $division,
+                'district'             => $district,
+                'upazila'              => $district . ' ' . $upazilas[array_rand($upazilas)],
+                'full_address'         => $district . ', ' . $division,
+                'permanent_division'   => $permDivision,
+                'permanent_district'   => $permDistrict,
+                'permanent_upazila'    => $permDistrict . ' সদর',
+                'permanent_address'    => $permDistrict . ', ' . $permDivision,
+                'education_level'      => $educationLevels[array_rand($educationLevels)],
+                'education_detail'     => $educationDetails[array_rand($educationDetails)],
+                'profession'           => $groomProfessions[array_rand($groomProfessions)],
+                'monthly_income'       => $incomes[array_rand($incomes)],
+                'father_name'          => 'মোঃ ' . explode(' ', $name)[1] . ' সাহেব',
+                'father_profession'    => $fatherProfessions[array_rand($fatherProfessions)],
+                'mother_name'          => 'বেগম ' . explode(' ', $name)[1],
+                'mother_profession'    => $motherProfessions[array_rand($motherProfessions)],
+                'brothers'             => rand(0, 3),
+                'sisters'              => rand(0, 3),
+                'about_me'             => $aboutMeGroom[array_rand($aboutMeGroom)],
+                'contact_person'       => 'মোঃ ' . explode(' ', $name)[1] . ' সাহেব',
+                'contact_relation'     => $contactRelations[array_rand($contactRelations)],
+                'partner_age_range'    => rand(18, 22) . '-' . rand(25, 28) . ' বছর',
+                'partner_complexion'   => $complexions[array_rand($complexions)],
+                'partner_height'       => $brideHeights[array_rand($brideHeights)] . ' বা বেশি',
+                'partner_district'     => $district . ' বা যেকোনো',
+                'partner_education'    => 'ন্যূনতম ' . $educationLevels[array_rand($educationLevels)],
+                'partner_profession'   => 'যেকোনো',
+                'qualities'            => 'দ্বীনদার, শিক্ষিত, পরিবারপ্রিয়',
+                'is_published'         => $i < 45,
+            ]);
 
-        Message::create([
-            'chat_room_id' => $chatRoom->id,
-            'sender_id' => $bride3->id,
-            'body' => 'জাজাকাল্লাহু খাইরান। আপনার সম্পর্কেও বায়োডাটায় পড়েছি। বিশ্ববিদ্যালয়ে শিক্ষকতা করছেন — মাশাআল্লাহ।',
-            'is_read' => true,
-            'created_at' => now()->subHours(4),
-        ]);
+            $groomUsers[] = $user;
+        }
 
-        Message::create([
-            'chat_room_id' => $chatRoom->id,
-            'sender_id' => $groom3->id,
-            'body' => 'আপনার পরিবার কি এই বিয়ে নিয়ে ইতিবাচক? আমার পরিবার আপনার বায়োডাটা দেখে খুশি হয়েছেন।',
-            'is_read' => false,
-            'created_at' => now()->subHours(2),
-        ]);
+        // ─── Create 50 Brides ───────────────────────────────────────────
 
-        Message::create([
-            'chat_room_id' => $chatRoom->id,
-            'sender_id' => $bride3->id,
-            'body' => 'জ্বী, আমার আব্বু-আম্মু আপনার বায়োডাটা দেখেছেন এবং তারাও ইতিবাচক মনোভাব দেখিয়েছেন। ইনশাআল্লাহ, সামনে এগিয়ে যেতে পারি।',
-            'is_read' => false,
-            'created_at' => now()->subHours(1),
-        ]);
+        $brideUsers = [];
+        foreach ($brideNames as $i => $name) {
+            $division = $divisions[array_rand($divisions)];
+            $district = $districtsByDivision[$division][array_rand($districtsByDivision[$division])];
+            $permDivision = $divisions[array_rand($divisions)];
+            $permDistrict = $districtsByDivision[$permDivision][array_rand($districtsByDivision[$permDivision])];
+
+            $user = User::create([
+                'name'             => $name,
+                'email'            => 'bride' . ($i + 1) . '@demo.com',
+                'phone'            => '018' . str_pad(rand(10000000, 99999999), 8, '0', STR_PAD_LEFT),
+                'password'         => bcrypt('password'),
+                'role'             => 'user',
+                'status'           => $i < 45 ? 'approved' : 'pending',
+                'email_verified_at' => now(),
+            ]);
+
+            $year = rand(1995, 2004);
+            $month = rand(1, 12);
+            $day = rand(1, 28);
+
+            Biodata::create([
+                'user_id'              => $user->id,
+                'biodata_type'         => 'bride',
+                'date_of_birth'        => sprintf('%04d-%02d-%02d', $year, $month, $day),
+                'marital_status'       => $maritalStatuses[array_rand($maritalStatuses)],
+                'religion'             => $religions[array_rand($religions)],
+                'height'               => $brideHeights[array_rand($brideHeights)],
+                'weight'               => $brideWeights[array_rand($brideWeights)],
+                'complexion'           => $complexions[array_rand($complexions)],
+                'blood_group'          => $bloodGroups[array_rand($bloodGroups)],
+                'division'             => $division,
+                'district'             => $district,
+                'upazila'              => $district . ' ' . $upazilas[array_rand($upazilas)],
+                'full_address'         => $district . ', ' . $division,
+                'permanent_division'   => $permDivision,
+                'permanent_district'   => $permDistrict,
+                'permanent_upazila'    => $permDistrict . ' সদর',
+                'permanent_address'    => $permDistrict . ', ' . $permDivision,
+                'education_level'      => $educationLevels[array_rand($educationLevels)],
+                'education_detail'     => $educationDetails[array_rand($educationDetails)],
+                'profession'           => $brideProfessions[array_rand($brideProfessions)],
+                'monthly_income'       => $incomes[array_rand($incomes)],
+                'father_name'          => 'মোঃ ' . explode(' ', $name)[count(explode(' ', $name)) - 1] . ' সাহেব',
+                'father_profession'    => $fatherProfessions[array_rand($fatherProfessions)],
+                'mother_name'          => 'বেগম ' . explode(' ', $name)[count(explode(' ', $name)) - 1],
+                'mother_profession'    => $motherProfessions[array_rand($motherProfessions)],
+                'brothers'             => rand(0, 3),
+                'sisters'              => rand(0, 3),
+                'about_me'             => $aboutMeBride[array_rand($aboutMeBride)],
+                'contact_person'       => 'মোঃ ' . explode(' ', $name)[count(explode(' ', $name)) - 1] . ' সাহেব',
+                'contact_relation'     => $contactRelations[array_rand($contactRelations)],
+                'partner_age_range'    => rand(24, 28) . '-' . rand(30, 35) . ' বছর',
+                'partner_complexion'   => $complexions[array_rand($complexions)],
+                'partner_height'       => $groomHeights[array_rand($groomHeights)] . ' বা বেশি',
+                'partner_district'     => $district . ' বা যেকোনো',
+                'partner_education'    => 'ন্যূনতম ' . $educationLevels[array_rand($educationLevels)],
+                'partner_profession'   => 'যেকোনো',
+                'qualities'            => 'নামাজি, সৎ, দায়িত্বশীল, পরিবারপ্রিয়',
+                'is_published'         => $i < 45,
+            ]);
+
+            $brideUsers[] = $user;
+        }
+
+        // ─── Create 100 Proposals ────────────────────────────────────────
+        // Each groom sends 2 proposals to different brides
+
+        $proposalCount = 0;
+        $usedPairs = [];
+
+        foreach ($groomUsers as $groomIndex => $groom) {
+            if ($proposalCount >= 100) break;
+
+            $brideBiodata = $groom->biodata ?? null;
+            if (! $brideBiodata) continue;
+
+            // Each groom sends proposals to 2 different brides
+            $targets = array_rand(array_keys($brideUsers), min(2, count($brideUsers)));
+            if (! is_array($targets)) $targets = [$targets];
+
+            foreach ($targets as $brideIndex) {
+                if ($proposalCount >= 100) break;
+
+                $bride = $brideUsers[$brideIndex];
+                $pairKey = $groom->id . '-' . $bride->id;
+
+                if (isset($usedPairs[$pairKey])) continue;
+                $usedPairs[$pairKey] = true;
+
+                $brideBiodataModel = $bride->biodata ?? null;
+                if (! $brideBiodataModel) continue;
+
+                $status = $proposalStatuses[array_rand($proposalStatuses)];
+
+                Proposal::create([
+                    'sender_id'                => $groom->id,
+                    'receiver_id'              => $bride->id,
+                    'biodata_id'               => $brideBiodataModel->id,
+                    'why_prefer'               => $whyPreferTexts[array_rand($whyPreferTexts)],
+                    'kabin_nama_expectations'  => $kabinExpectations[array_rand($kabinExpectations)],
+                    'gold_jewelry_expectations' => $goldExpectations[array_rand($goldExpectations)],
+                    'status'                   => $status,
+                    'admin_note'               => $status === 'rejected'
+                        ? 'পাত্রীর পরিবার এই মুহূর্তে সম্মত নন।'
+                        : null,
+                ]);
+
+                $proposalCount++;
+            }
+        }
+
+        // If still under 100, fill remaining proposals
+        if ($proposalCount < 100) {
+            shuffle($groomUsers);
+            shuffle($brideUsers);
+            foreach ($groomUsers as $groom) {
+                if ($proposalCount >= 100) break;
+                foreach ($brideUsers as $bride) {
+                    if ($proposalCount >= 100) break;
+                    $pairKey = $groom->id . '-' . $bride->id;
+                    if (isset($usedPairs[$pairKey])) continue;
+                    $usedPairs[$pairKey] = true;
+
+                    $brideBiodataModel = $bride->biodata ?? null;
+                    if (! $brideBiodataModel) continue;
+
+                    $status = $proposalStatuses[array_rand($proposalStatuses)];
+
+                    Proposal::create([
+                        'sender_id'                => $groom->id,
+                        'receiver_id'              => $bride->id,
+                        'biodata_id'               => $brideBiodataModel->id,
+                        'why_prefer'               => $whyPreferTexts[array_rand($whyPreferTexts)],
+                        'kabin_nama_expectations'  => $kabinExpectations[array_rand($kabinExpectations)],
+                        'gold_jewelry_expectations' => $goldExpectations[array_rand($goldExpectations)],
+                        'status'                   => $status,
+                        'admin_note'               => $status === 'rejected'
+                            ? 'পাত্রীর পরিবার এই মুহূর্তে সম্মত নন।'
+                            : null,
+                    ]);
+
+                    $proposalCount++;
+                }
+            }
+        }
+
+        // ─── Chat rooms for chat_allowed proposals ─────────────────────
+
+        $chatAllowedProposals = \App\Models\Proposal::where('status', 'chat_allowed')->get();
+        foreach ($chatAllowedProposals as $proposal) {
+            $existing = ChatRoom::where('proposal_id', $proposal->id)->first();
+            if ($existing) continue;
+
+            $chatRoom = ChatRoom::create([
+                'proposal_id' => $proposal->id,
+                'user_one_id' => $proposal->sender_id,
+                'user_two_id' => $proposal->receiver_id,
+                'is_active'   => true,
+            ]);
+
+            Message::create([
+                'chat_room_id' => $chatRoom->id,
+                'sender_id'    => $proposal->sender_id,
+                'body'         => 'আসসালামু আলাইকুম, কেমন আছেন?',
+                'is_read'      => true,
+                'created_at'   => now()->subHours(rand(2, 10)),
+            ]);
+
+            Message::create([
+                'chat_room_id' => $chatRoom->id,
+                'sender_id'    => $proposal->receiver_id,
+                'body'         => 'ওয়ালাইকুম আসসালাম, আলহামদুলিল্লাহ ভালো আছি। আপনি কেমন আছেন?',
+                'is_read'      => rand(0, 1) === 1,
+                'created_at'   => now()->subHours(rand(1, 5)),
+            ]);
+        }
 
         $this->command->info('✅ ডেমো ডাটা সফলভাবে যোগ করা হয়েছে!');
         $this->command->info('');
-        $this->command->info('📋 ডেমো অ্যাকাউন্টসমূহ (পাসওয়ার্ড: password):');
-        $this->command->info('   পাত্র: arif@demo.com, tanvir@demo.com, rakib@demo.com, subrata@demo.com');
-        $this->command->info('   পাত্রী: fatima@demo.com, sadia@demo.com, mariam@demo.com, nusrat@demo.com');
-        $this->command->info('   অপেক্ষমাণ: jahid@demo.com, tasnim@demo.com');
-        $this->command->info('   অ্যাডমিন: nayakemily50@gmail.com');
+        $this->command->info('📋 সারসংক্ষেপ:');
+        $this->command->info('   পাত্র: ' . count($groomUsers) . ' জন (groom1@demo.com ... groom50@demo.com)');
+        $this->command->info('   পাত্রী: ' . count($brideUsers) . ' জন (bride1@demo.com ... bride50@demo.com)');
+        $this->command->info('   মোট বায়োডাটা: ' . \App\Models\Biodata::count());
+        $this->command->info('   মোট প্রস্তাব: ' . \App\Models\Proposal::count());
+        $this->command->info('   পাসওয়ার্ড সকলের: password');
+        $this->command->info('   অ্যাডমিন: nayakemily50@gmail.com / nayakemily50@gmail.com');
     }
 }
