@@ -50,7 +50,7 @@ export default function Show({ chatRoom, messages, otherUser }) {
             <div className="max-w-3xl mx-auto">
                 {/* Header */}
                 <div className="glass-card p-4 mb-4 flex items-center space-x-4">
-                    <Link href="/chat" className="text-dark-400 hover:text-primary-400 transition-colors">
+                    <Link href="/chat" className="text-slate-500 dark:text-dark-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
                         <ArrowLeft className="w-6 h-6" />
                     </Link>
                     {otherUser.profile_photo ? (
@@ -61,8 +61,8 @@ export default function Show({ chatRoom, messages, otherUser }) {
                         </div>
                     )}
                     <div>
-                        <h2 className="font-semibold text-dark-100">{otherUser.name}</h2>
-                        <p className="text-dark-500 text-xs">প্রাইভেট চ্যাট</p>
+                        <h2 className="font-semibold text-slate-900 dark:text-dark-100">{otherUser.name}</h2>
+                        <p className="text-slate-400 dark:text-dark-500 text-xs">প্রাইভেট চ্যাট</p>
                     </div>
                 </div>
 
@@ -75,14 +75,14 @@ export default function Show({ chatRoom, messages, otherUser }) {
                                 return (
                                     <div key={message.id} className={`flex ${isMe ? 'justify-end' : 'justify-start'}`}>
                                         <div className={`max-w-[75%] p-4 rounded-2xl ${isMe
-                                                ? 'bg-gradient-to-br from-primary-500/20 to-primary-600/20 border border-primary-500/30 rounded-br-md'
-                                                : 'bg-dark-800/50 border border-dark-700/30 rounded-bl-md'
+                                                ? 'bg-gradient-to-br from-primary-500/10 to-primary-600/10 border border-primary-500/20 dark:from-primary-500/20 dark:to-primary-600/20 dark:border-primary-500/30 rounded-br-md text-slate-700 dark:text-dark-100'
+                                                : 'bg-slate-100 border border-slate-200 dark:bg-dark-800/50 dark:border-dark-700/30 rounded-bl-md text-slate-700 dark:text-dark-100'
                                             }`}>
                                             {!isMe && (
-                                                <p className="text-primary-400 text-xs font-medium mb-1">{message.sender?.name}</p>
+                                                <p className="text-primary-600 dark:text-primary-400 text-xs font-medium mb-1">{message.sender?.name}</p>
                                             )}
-                                            <p className="text-dark-200 text-sm leading-relaxed">{message.body}</p>
-                                            <p className={`text-xs mt-2 ${isMe ? 'text-primary-400/60' : 'text-dark-600'}`}>
+                                            <p className="text-slate-700 dark:text-dark-200 text-sm leading-relaxed">{message.body}</p>
+                                            <p className={`text-xs mt-2 ${isMe ? 'text-primary-500/60 dark:text-primary-400/60' : 'text-slate-400 dark:text-dark-600'}`}>
                                                 {new Date(message.created_at).toLocaleTimeString('bn-BD', { hour: '2-digit', minute: '2-digit' })}
                                             </p>
                                         </div>
@@ -92,7 +92,7 @@ export default function Show({ chatRoom, messages, otherUser }) {
                             <div ref={messagesEndRef} />
                         </div>
                     ) : (
-                        <div className="flex items-center justify-center h-full text-dark-500">
+                        <div className="flex items-center justify-center h-full text-slate-400 dark:text-dark-500">
                             <p>কথোপকথন শুরু করুন!</p>
                         </div>
                     )}
@@ -105,7 +105,7 @@ export default function Show({ chatRoom, messages, otherUser }) {
                         value={data.body}
                         onChange={(e) => setData('body', e.target.value)}
                         placeholder="মেসেজ লিখুন..."
-                        className="flex-1 bg-transparent border-none text-dark-200 placeholder-dark-500 focus:ring-0 focus:outline-none"
+                        className="flex-1 bg-transparent border-none text-slate-700 dark:text-dark-200 placeholder-slate-400 dark:placeholder-dark-500 focus:ring-0 focus:outline-none"
                         onKeyDown={(e) => {
                             if (e.key === 'Enter' && !e.shiftKey) {
                                 e.preventDefault();

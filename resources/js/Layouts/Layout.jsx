@@ -1,11 +1,25 @@
 import { Link, usePage } from '@inertiajs/react';
-import { Heart, Home, Search, MessageCircle, User, LogOut, Menu, X, Shield, FileText, Send } from 'lucide-react';
+import { Heart, Home, Search, MessageCircle, User, LogOut, Menu, X, Shield, FileText, Send, Sun, Moon } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 export default function Layout({ children }) {
     const { auth, flash } = usePage().props;
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [showFlash, setShowFlash] = useState(false);
+    const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
+
+    useEffect(() => {
+        if (theme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+        localStorage.setItem('theme', theme);
+    }, [theme]);
+
+    const toggleTheme = () => {
+        setTheme(theme === 'dark' ? 'light' : 'dark');
+    };
 
     useEffect(() => {
         if (flash?.success || flash?.error) {
@@ -35,19 +49,19 @@ export default function Layout({ children }) {
     const navItems = isAdmin ? adminNav : userNav;
 
     return (
-        <div className="min-h-screen bg-dark-950">
+        <div className="min-h-screen bg-slate-50 dark:bg-dark-950 transition-colors duration-300">
             {/* Flash Messages */}
             {showFlash && (flash?.success || flash?.error) && (
-                <div className={`fixed top-4 right-4 z-50 px-6 py-4 rounded-xl shadow-2xl slide-up ${flash?.success
-                        ? 'bg-emerald-500/20 border border-emerald-500/30 text-emerald-300'
-                        : 'bg-red-500/20 border border-red-500/30 text-red-300'
+                <div className={`fixed top-4 right-4 z-50 px-6 py-4 rounded-2xl shadow-2xl slide-up backdrop-blur-md ${flash?.success
+                        ? 'bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:bg-emerald-500/20 dark:border-emerald-500/30 dark:text-emerald-300'
+                        : 'bg-red-500/10 border border-red-500/20 text-red-600 dark:bg-red-500/20 dark:border-red-500/30 dark:text-red-300'
                     }`}>
-                    <p>{flash?.success || flash?.error}</p>
+                    <p className="font-medium">{flash?.success || flash?.error}</p>
                 </div>
             )}
 
             {/* Navbar */}
-            <nav className="sticky top-0 z-40 glass-card border-b border-dark-700/30 backdrop-blur-xl bg-dark-950/80">
+            <nav className="sticky top-0 z-40 border-b border-slate-200 backdrop-blur-xl bg-white/80 dark:border-dark-700/30 dark:bg-dark-950/80">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-16">
                         {/* Logo */}
@@ -66,7 +80,7 @@ export default function Layout({ children }) {
                                 <Link
                                     key={item.href}
                                     href={item.href}
-                                    className="flex items-center space-x-2 px-4 py-2 rounded-xl text-dark-300 hover:text-primary-400 hover:bg-dark-800/50 transition-all duration-300"
+                                    className="flex items-center space-x-2 px-4 py-2 rounded-xl text-slate-600 hover:text-primary-500 hover:bg-slate-100 dark:text-dark-300 dark:hover:text-primary-400 dark:hover:bg-dark-800/50 transition-all duration-300"
                                 >
                                     <item.icon className="w-4 h-4" />
                                     <span className="text-sm">{item.name}</span>
@@ -75,7 +89,15 @@ export default function Layout({ children }) {
                         </div>
 
                         {/* Right Side */}
-                        <div className="flex items-center space-x-3">
+                        <div className="flex items-center space-x-2 sm:space-x-3">
+                            {/* Theme Toggle */}
+                            <button
+                                onClick={toggleTheme}
+                                className="p-2.5 rounded-xl bg-slate-100 border border-slate-200 text-slate-600 hover:text-primary-600 hover:border-primary-500/30 dark:bg-dark-800/50 dark:border-dark-700/50 dark:text-dark-400 dark:hover:text-primary-400 transition-all duration-300"
+                                aria-label="Toggle Theme"
+                            >
+                                {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+                            </button>
                             {auth?.user ? (
                                 <>
                                     <div className="hidden md:flex items-center space-x-3">
@@ -87,9 +109,9 @@ export default function Layout({ children }) {
                                                     <User className="w-4 h-4 text-white" />
                                                 </div>
                                             )}
-                                            <span className="text-sm text-dark-200">{auth.user.name}</span>
+                                            <span className="text-sm font-medium text-slate-700 dark:text-dark-200">{auth.user.name}</span>
                                             {isAdmin && (
-                                                <span className="px-2 py-0.5 text-xs rounded-full bg-primary-500/20 text-primary-400 border border-primary-500/30">
+                                                <span className="px-2.5 py-1 text-[10px] uppercase tracking-wider font-bold rounded-full bg-primary-500/10 text-primary-600 border border-primary-500/20 dark:bg-primary-500/20 dark:text-primary-400 dark:border-primary-500/30">
                                                     <Shield className="w-3 h-3 inline mr-1" />
                                                     অ্যাডমিন
                                                 </span>
@@ -99,7 +121,7 @@ export default function Layout({ children }) {
                                             href="/logout"
                                             method="post"
                                             as="button"
-                                            className="p-2 text-dark-400 hover:text-red-400 transition-colors"
+                                            className="p-2.5 text-slate-400 hover:text-red-500 hover:bg-red-50 dark:text-dark-400 dark:hover:text-red-400 dark:hover:bg-red-500/10 rounded-xl transition-all"
                                         >
                                             <LogOut className="w-5 h-5" />
                                         </Link>
@@ -125,14 +147,14 @@ export default function Layout({ children }) {
 
                 {/* Mobile Menu */}
                 {mobileMenuOpen && auth?.user && (
-                    <div className="md:hidden border-t border-dark-700/30">
+                    <div className="md:hidden border-t border-slate-200 dark:border-dark-700/30 bg-white dark:bg-dark-950">
                         <div className="px-4 py-3 space-y-1">
                             {navItems.map((item) => (
                                 <Link
                                     key={item.href}
                                     href={item.href}
                                     onClick={() => setMobileMenuOpen(false)}
-                                    className="flex items-center space-x-3 px-4 py-3 rounded-xl text-dark-300 hover:text-primary-400 hover:bg-dark-800/50 transition-all"
+                                    className="flex items-center space-x-3 px-4 py-3 rounded-xl text-slate-600 hover:text-primary-500 hover:bg-slate-50 dark:text-dark-300 dark:hover:text-primary-400 dark:hover:bg-dark-800/50 transition-all"
                                 >
                                     <item.icon className="w-5 h-5" />
                                     <span>{item.name}</span>
@@ -158,14 +180,16 @@ export default function Layout({ children }) {
             </main>
 
             {/* Footer */}
-            <footer className="border-t border-dark-800/50 mt-16">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                    <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-                        <div className="flex items-center space-x-2">
-                            <Heart className="w-5 h-5 text-primary-500" />
-                            <span className="text-dark-400">সহজ বিয়ে - বিশ্বস্ত বিবাহ সেবা</span>
+            <footer className="border-t border-slate-200 dark:border-dark-800/50 mt-16 bg-white dark:bg-transparent">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+                    <div className="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
+                        <div className="flex items-center space-x-3">
+                            <div className="p-2 rounded-lg bg-primary-500/10 text-primary-600 dark:bg-primary-500/20 dark:text-primary-500">
+                                <Heart className="w-5 h-5" />
+                            </div>
+                            <span className="font-semibold text-slate-700 dark:text-dark-400">সহজ বিয়ে - বিশ্বস্ত বিবাহ সেবা</span>
                         </div>
-                        <p className="text-dark-500 text-sm">© ২০২৪ সহজ বিয়ে। সর্বস্বত্ব সংরক্ষিত।</p>
+                        <p className="text-slate-400 dark:text-dark-500 text-sm font-medium">© ২০২৪ সহজ বিয়ে। সর্বস্বত্ব সংরক্ষিত।</p>
                     </div>
                 </div>
             </footer>
