@@ -10,8 +10,8 @@ export default function Dashboard({ biodata, stats }) {
             <div className="space-y-8">
                 {/* Header */}
                 <div>
-                    <h1 className="text-3xl font-bold text-dark-100">ড্যাশবোর্ড</h1>
-                    <p className="text-dark-400 mt-1">আপনার সহজ বিয়ে অ্যাকাউন্ট</p>
+                    <h1 className="text-3xl font-bold text-slate-900 dark:text-dark-100">ড্যাশবোর্ড</h1>
+                    <p className="text-slate-500 dark:text-dark-400 mt-1">আপনার সহজ বিয়ে অ্যাকাউন্ট</p>
                 </div>
 
                 {/* Stats */}
@@ -24,8 +24,8 @@ export default function Dashboard({ biodata, stats }) {
                         <div key={i} className="glass-card p-6 group hover:border-primary-500/30 transition-all duration-500">
                             <div className="flex items-center justify-between">
                                 <div>
-                                    <p className="text-dark-400 text-sm">{stat.label}</p>
-                                    <p className="text-3xl font-bold text-dark-100 mt-1">{stat.value}</p>
+                                    <p className="text-slate-500 dark:text-dark-400 text-sm">{stat.label}</p>
+                                    <p className="text-3xl font-bold text-slate-900 dark:text-dark-100 mt-1">{stat.value}</p>
                                 </div>
                                 <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${stat.color} flex items-center justify-center group-hover:scale-110 transition-transform`}>
                                     <stat.icon className="w-6 h-6 text-white" />
@@ -41,8 +41,8 @@ export default function Dashboard({ biodata, stats }) {
                         <div>
                             <div className="flex items-center justify-between mb-6">
                                 <div>
-                                    <h2 className="text-xl font-bold text-dark-100">আপনার বায়োডাটা</h2>
-                                    <p className="text-dark-400 text-sm mt-1">
+                                    <h2 className="text-xl font-bold text-slate-900 dark:text-dark-100">আপনার বায়োডাটা</h2>
+                                    <p className="text-slate-500 dark:text-dark-400 text-sm mt-1">
                                         {biodata.biodata_type === 'bride' ? 'পাত্রী' : 'পাত্র'} • {biodata.age} বছর • {biodata.district}
                                     </p>
                                 </div>
@@ -65,18 +65,18 @@ export default function Dashboard({ biodata, stats }) {
                                     { label: 'ধর্ম', value: biodata.religion },
                                     { label: 'বৈবাহিক অবস্থা', value: biodata.marital_status === 'unmarried' ? 'অবিবাহিত' : biodata.marital_status === 'divorced' ? 'তালাকপ্রাপ্ত' : biodata.marital_status },
                                 ].map((item, i) => (
-                                    <div key={i} className="bg-dark-800/30 rounded-xl p-4">
-                                        <p className="text-dark-500 text-xs">{item.label}</p>
-                                        <p className="text-dark-200 font-medium mt-1">{item.value}</p>
+                                    <div key={i} className="bg-slate-50 dark:bg-dark-800/30 rounded-xl p-4 border border-slate-100 dark:border-transparent">
+                                        <p className="text-slate-400 dark:text-dark-500 text-xs">{item.label}</p>
+                                        <p className="text-slate-700 dark:text-dark-200 font-medium mt-1">{item.value}</p>
                                     </div>
                                 ))}
                             </div>
                         </div>
                     ) : (
                         <div className="text-center py-8">
-                            <FileText className="w-16 h-16 text-dark-600 mx-auto mb-4" />
-                            <h2 className="text-xl font-bold text-dark-100 mb-2">এখনও বায়োডাটা তৈরি হয়নি</h2>
-                            <p className="text-dark-400 mb-6">আপনার বায়োডাটা পোস্ট করুন এবং জীবনসঙ্গী খুঁজুন</p>
+                            <FileText className="w-16 h-16 text-slate-300 dark:text-dark-600 mx-auto mb-4" />
+                            <h2 className="text-xl font-bold text-slate-900 dark:text-dark-100 mb-2">এখনও বায়োডাটা তৈরি হয়নি</h2>
+                            <p className="text-slate-500 dark:text-dark-400 mb-6">আপনার বায়োডাটা পোস্ট করুন এবং জীবনসঙ্গী খুঁজুন</p>
                             <Link href="/biodata/create" className="btn-primary inline-flex items-center space-x-2">
                                 <PlusCircle className="w-5 h-5" />
                                 <span>বায়োডাটা তৈরি করুন</span>
@@ -94,8 +94,8 @@ export default function Dashboard({ biodata, stats }) {
                                     <Heart className="w-6 h-6 text-white" />
                                 </div>
                                 <div>
-                                    <h3 className="text-lg font-semibold text-dark-100">বায়োডাটা দেখুন</h3>
-                                    <p className="text-dark-400 text-sm">পাত্র/পাত্রীর বায়োডাটা ব্রাউজ করুন</p>
+                                    <h3 className="text-lg font-semibold text-slate-900 dark:text-dark-100">বায়োডাটা দেখুন</h3>
+                                    <p className="text-slate-500 dark:text-dark-400 text-sm">পাত্র/পাত্রীর বায়োডাটা ব্রাউজ করুন</p>
                                 </div>
                             </div>
                             <ArrowRight className="w-5 h-5 text-dark-500 group-hover:text-primary-400 group-hover:translate-x-1 transition-all" />
@@ -109,8 +109,8 @@ export default function Dashboard({ biodata, stats }) {
                                     <Send className="w-6 h-6 text-white" />
                                 </div>
                                 <div>
-                                    <h3 className="text-lg font-semibold text-dark-100">আমার প্রস্তাবসমূহ</h3>
-                                    <p className="text-dark-400 text-sm">পাঠানো ও প্রাপ্ত প্রস্তাবসমূহ</p>
+                                    <h3 className="text-lg font-semibold text-slate-900 dark:text-dark-100">আমার প্রস্তাবসমূহ</h3>
+                                    <p className="text-slate-500 dark:text-dark-400 text-sm">পাঠানো ও প্রাপ্ত প্রস্তাবসমূহ</p>
                                 </div>
                             </div>
                             <ArrowRight className="w-5 h-5 text-dark-500 group-hover:text-primary-400 group-hover:translate-x-1 transition-all" />

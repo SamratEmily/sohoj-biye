@@ -30,18 +30,18 @@ export default function Show({ biodata, hasProposed }) {
     };
 
     const InfoItem = ({ icon: Icon, label, value }) => value ? (
-        <div className="flex items-start space-x-3 py-3 border-b border-dark-800/50 last:border-0">
-            <Icon className="w-5 h-5 text-primary-400 mt-0.5 flex-shrink-0" />
+        <div className="flex items-start space-x-3 py-3 border-b border-slate-100 dark:border-dark-800/50 last:border-0">
+            <Icon className="w-5 h-5 text-primary-500 dark:text-primary-400 mt-0.5 flex-shrink-0" />
             <div>
-                <p className="text-dark-500 text-sm">{label}</p>
-                <p className="text-dark-200">{value}</p>
+                <p className="text-slate-400 dark:text-dark-500 text-sm">{label}</p>
+                <p className="text-slate-700 dark:text-dark-200">{value}</p>
             </div>
         </div>
     ) : null;
 
     const Section = ({ title, children }) => (
         <div className="glass-card p-6 space-y-1">
-            <h3 className="text-lg font-semibold text-dark-100 mb-4">{title}</h3>
+            <h3 className="text-lg font-semibold text-slate-900 dark:text-dark-100 mb-4">{title}</h3>
             {children}
         </div>
     );
@@ -54,7 +54,7 @@ export default function Show({ biodata, hasProposed }) {
 
             <div className="max-w-4xl mx-auto space-y-6">
                 {/* Back Link */}
-                <Link href="/feed" className="inline-flex items-center space-x-2 text-dark-400 hover:text-primary-400 transition-colors">
+                <Link href="/feed" className="inline-flex items-center space-x-2 text-slate-500 dark:text-dark-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
                     <ArrowLeft className="w-5 h-5" />
                     <span>ফিডে ফিরে যান</span>
                 </Link>
@@ -74,15 +74,15 @@ export default function Show({ biodata, hasProposed }) {
                         <div className="flex-1">
                             <div className="flex items-center space-x-3 mb-2">
                                 <span className={`text-sm px-3 py-1 rounded-full font-medium ${biodata.biodata_type === 'bride'
-                                        ? 'bg-pink-500/20 text-pink-300 border border-pink-500/30'
-                                        : 'bg-blue-500/20 text-blue-300 border border-blue-500/30'
+                                        ? 'bg-pink-500/10 text-pink-600 border border-pink-500/20 dark:bg-pink-500/20 dark:text-pink-300 dark:border-pink-500/30'
+                                        : 'bg-blue-500/10 text-blue-600 border border-blue-500/20 dark:bg-blue-500/20 dark:text-blue-300 dark:border-blue-500/30'
                                     }`}>
                                     {biodata.biodata_type === 'bride' ? 'পাত্রী' : 'পাত্র'}
                                 </span>
-                                <span className="text-dark-500 text-sm">বায়োডাটা #{biodata.id}</span>
+                                <span className="text-slate-400 dark:text-dark-500 text-sm">বায়োডাটা #{biodata.id}</span>
                             </div>
-                            <h1 className="text-2xl font-bold text-dark-100">{biodata.user?.name || 'নাম গোপন'}</h1>
-                            <p className="text-dark-400 mt-1">{biodata.age} বছর • {biodata.district}, {biodata.division}</p>
+                            <h1 className="text-2xl font-bold text-slate-900 dark:text-dark-100">{biodata.user?.name || 'নাম গোপন'}</h1>
+                            <p className="text-slate-500 dark:text-dark-400 mt-1">{biodata.age} বছর • {biodata.district}, {biodata.division}</p>
                         </div>
 
                         {!isOwnBiodata && (
@@ -108,10 +108,10 @@ export default function Show({ biodata, hasProposed }) {
                 {/* Proposal Form */}
                 {showProposalForm && (
                     <div className="glass-card p-6 border-primary-500/30 slide-up">
-                        <h3 className="text-lg font-semibold text-dark-100 mb-4">প্রস্তাব পাঠান</h3>
+                        <h3 className="text-lg font-semibold text-slate-900 dark:text-dark-100 mb-4">প্রস্তাব পাঠান</h3>
                         <form onSubmit={handleProposal} className="space-y-4">
                             <div>
-                                <label className="block text-sm font-medium text-dark-300 mb-2">কেন পছন্দ করেছেন? *</label>
+                                <label className="block text-sm font-medium text-slate-700 dark:text-dark-300 mb-2">কেন পছন্দ করেছেন? *</label>
                                 <textarea
                                     value={data.why_prefer}
                                     onChange={(e) => setData('why_prefer', e.target.value)}
@@ -119,11 +119,11 @@ export default function Show({ biodata, hasProposed }) {
                                     className="glass-input w-full"
                                     placeholder="কেন এই বায়োডাটা আপনার পছন্দ হয়েছে তা লিখুন..."
                                 />
-                                {errors.why_prefer && <p className="mt-1 text-sm text-red-400">{errors.why_prefer}</p>}
+                                {errors.why_prefer && <p className="mt-1 text-sm text-red-500 dark:text-red-400">{errors.why_prefer}</p>}
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-dark-300 mb-2">
-                                    <BookOpen className="w-4 h-4 inline mr-1" />
+                                <label className="block text-sm font-medium text-slate-700 dark:text-dark-300 mb-2">
+                                    <BookOpen className="w-4 h-4 inline mr-1 text-primary-500" />
                                     কাবিননামা প্রত্যাশা
                                 </label>
                                 <textarea
@@ -135,8 +135,8 @@ export default function Show({ biodata, hasProposed }) {
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-dark-300 mb-2">
-                                    <Gem className="w-4 h-4 inline mr-1" />
+                                <label className="block text-sm font-medium text-slate-700 dark:text-dark-300 mb-2">
+                                    <Gem className="w-4 h-4 inline mr-1 text-primary-500" />
                                     স্বর্ণালঙ্কার প্রত্যাশা
                                 </label>
                                 <textarea
@@ -198,7 +198,7 @@ export default function Show({ biodata, hasProposed }) {
 
                 {biodata.about_me && (
                     <Section title="নিজের সম্পর্কে">
-                        <p className="text-dark-300 leading-relaxed">{biodata.about_me}</p>
+                        <p className="text-slate-600 dark:text-dark-300 leading-relaxed">{biodata.about_me}</p>
                     </Section>
                 )}
 
@@ -212,8 +212,8 @@ export default function Show({ biodata, hasProposed }) {
                         <InfoItem icon={Briefcase} label="পেশা" value={biodata.partner_profession} />
                         {biodata.qualities && (
                             <div className="pt-3">
-                                <p className="text-dark-500 text-sm mb-1">আশা করা গুণাবলী</p>
-                                <p className="text-dark-300">{biodata.qualities}</p>
+                                <p className="text-slate-400 dark:text-dark-500 text-sm mb-1">আশা করা গুণাবলী</p>
+                                <p className="text-slate-600 dark:text-dark-300">{biodata.qualities}</p>
                             </div>
                         )}
                     </Section>

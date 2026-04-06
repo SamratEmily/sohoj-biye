@@ -19,8 +19,8 @@ export default function Dashboard({ stats }) {
 
             <div className="space-y-8">
                 <div>
-                    <h1 className="text-3xl font-bold text-dark-100">অ্যাডমিন ড্যাশবোর্ড</h1>
-                    <p className="text-dark-400 mt-1">সহজ বিয়ে প্ল্যাটফর্ম পরিচালনা</p>
+                    <h1 className="text-3xl font-bold text-slate-900 dark:text-dark-100">অ্যাডমিন ড্যাশবোর্ড</h1>
+                    <p className="text-slate-500 dark:text-dark-400 mt-1">সহজ বিয়ে প্ল্যাটফর্ম পরিচালনা</p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -28,8 +28,8 @@ export default function Dashboard({ stats }) {
                         <Link key={i} href={stat.href} className="glass-card p-6 group hover:border-primary-500/30 transition-all duration-500">
                             <div className="flex items-center justify-between">
                                 <div>
-                                    <p className="text-dark-400 text-sm">{stat.label}</p>
-                                    <p className="text-3xl font-bold text-dark-100 mt-1">{stat.value}</p>
+                                    <p className="text-slate-500 dark:text-dark-400 text-sm">{stat.label}</p>
+                                    <p className="text-3xl font-bold text-slate-900 dark:text-dark-100 mt-1">{stat.value}</p>
                                 </div>
                                 <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${stat.color} flex items-center justify-center group-hover:scale-110 transition-transform`}>
                                     <stat.icon className="w-7 h-7 text-white" />

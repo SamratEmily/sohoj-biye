@@ -8,7 +8,7 @@ import { Save, ChevronRight, ChevronLeft } from 'lucide-react';
 function SelectField({ label, value, onChange, options, required, placeholder, error }) {
     return (
         <div>
-            <label className="block text-sm font-medium text-dark-300 mb-2">{label} {required && '*'}</label>
+            <label className="block text-sm font-medium text-slate-700 dark:text-dark-300 mb-2">{label} {required && '*'}</label>
             <select value={value} onChange={onChange} className="glass-input w-full">
                 <option value="">{placeholder || 'নির্বাচন করুন'}</option>
                 {options.map((opt) => (
@@ -17,7 +17,7 @@ function SelectField({ label, value, onChange, options, required, placeholder, e
                     </option>
                 ))}
             </select>
-            {error && <p className="mt-1 text-sm text-red-400">{error}</p>}
+            {error && <p className="mt-1 text-sm text-red-500 dark:text-red-400">{error}</p>}
         </div>
     );
 }
@@ -25,7 +25,7 @@ function SelectField({ label, value, onChange, options, required, placeholder, e
 function InputField({ label, name, value, onChange, type = 'text', required, placeholder, rows, error }) {
     return (
         <div>
-            <label className="block text-sm font-medium text-dark-300 mb-2">{label} {required && '*'}</label>
+            <label className="block text-sm font-medium text-slate-700 dark:text-dark-300 mb-2">{label} {required && '*'}</label>
             {rows ? (
                 <textarea
                     value={value}
@@ -43,7 +43,7 @@ function InputField({ label, name, value, onChange, type = 'text', required, pla
                     placeholder={placeholder}
                 />
             )}
-            {error && <p className="mt-1 text-sm text-red-400">{error}</p>}
+            {error && <p className="mt-1 text-sm text-red-500 dark:text-red-400">{error}</p>}
         </div>
     );
 }
@@ -129,8 +129,8 @@ export default function Create({ biodata }) {
 
             <div className="max-w-3xl mx-auto">
                 <div className="mb-8">
-                    <h1 className="text-3xl font-bold text-dark-100">{isEditing ? 'বায়োডাটা সম্পাদনা' : 'বায়োডাটা তৈরি করুন'}</h1>
-                    <p className="text-dark-400 mt-1">আপনার বিস্তারিত তথ্য পূরণ করুন</p>
+                    <h1 className="text-3xl font-bold text-slate-900 dark:text-dark-100">{isEditing ? 'বায়োডাটা সম্পাদনা' : 'বায়োডাটা তৈরি করুন'}</h1>
+                    <p className="text-slate-500 dark:text-dark-400 mt-1">আপনার বিস্তারিত তথ্য পূরণ করুন</p>
                 </div>
 
                 {/* Step Indicator */}
@@ -140,13 +140,13 @@ export default function Create({ biodata }) {
                             key={i}
                             onClick={() => setStep(i + 1)}
                             className={`flex items-center space-x-2 px-3 py-2 rounded-xl text-sm transition-all whitespace-nowrap ${step === i + 1
-                                ? 'bg-primary-500/20 text-primary-300 border border-primary-500/30'
+                                ? 'bg-primary-500/10 text-primary-600 border border-primary-500/30 dark:bg-primary-500/20 dark:text-primary-300'
                                 : step > i + 1
-                                    ? 'text-emerald-400'
-                                    : 'text-dark-500'
+                                    ? 'text-emerald-600 dark:text-emerald-400'
+                                    : 'text-slate-400 dark:text-dark-500'
                                 }`}
                         >
-                            <span className="w-6 h-6 rounded-full bg-current/20 flex items-center justify-center text-xs font-bold">{i + 1}</span>
+                            <span className="w-6 h-6 rounded-full bg-current/10 flex items-center justify-center text-xs font-bold">{i + 1}</span>
                             <span className="hidden sm:inline">{label}</span>
                         </button>
                     ))}
@@ -158,11 +158,11 @@ export default function Create({ biodata }) {
                         {/* Step 1: Personal */}
                         {step === 1 && (
                             <div className="space-y-5 slide-up">
-                                <h2 className="text-xl font-semibold text-dark-100 mb-4">ব্যক্তিগত তথ্য</h2>
+                                <h2 className="text-xl font-semibold text-slate-900 dark:text-dark-100 mb-4">ব্যক্তিগত তথ্য</h2>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                                     <div>
-                                        <label className="block text-sm font-medium text-dark-300 mb-2">বায়োডাটার ধরন *</label>
+                                        <label className="block text-sm font-medium text-slate-700 dark:text-dark-300 mb-2">বায়োডাটার ধরন *</label>
                                         <div className="flex space-x-4">
                                             {[{ value: 'groom', label: '🤵 পাত্র' }, { value: 'bride', label: '👰 পাত্রী' }].map((type) => (
                                                 <button
@@ -170,15 +170,15 @@ export default function Create({ biodata }) {
                                                     type="button"
                                                     onClick={() => setData('biodata_type', type.value)}
                                                     className={`flex-1 py-3 px-4 rounded-xl border text-center font-medium transition-all ${data.biodata_type === type.value
-                                                        ? 'border-primary-500 bg-primary-500/20 text-primary-300'
-                                                        : 'border-dark-700/50 bg-dark-800/30 text-dark-400 hover:border-dark-600'
+                                                        ? 'border-primary-500 bg-primary-500/10 text-primary-600 dark:bg-primary-500/20 dark:text-primary-300'
+                                                        : 'border-slate-200 bg-white text-slate-500 hover:border-primary-500/30 dark:border-dark-700/50 dark:bg-dark-800/30 dark:text-dark-400 dark:hover:border-dark-600'
                                                         }`}
                                                 >
                                                     {type.label}
                                                 </button>
                                             ))}
                                         </div>
-                                        {errors.biodata_type && <p className="mt-1 text-sm text-red-400">{errors.biodata_type}</p>}
+                                        {errors.biodata_type && <p className="mt-1 text-sm text-red-500 dark:text-red-400">{errors.biodata_type}</p>}
                                     </div>
 
                                     <InputField label="জন্ম তারিখ" name="date_of_birth" type="date" value={data.date_of_birth} onChange={(e) => setData('date_of_birth', e.target.value)} required error={errors.date_of_birth} />
@@ -205,7 +205,7 @@ export default function Create({ biodata }) {
                         {step === 2 && (
                             <div className="space-y-6 slide-up">
                                 <div>
-                                    <h2 className="text-xl font-semibold text-dark-100 mb-4">বর্তমান ঠিকানা</h2>
+                                    <h2 className="text-xl font-semibold text-slate-900 dark:text-dark-100 mb-4">বর্তমান ঠিকানা</h2>
                                     <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                                         <SelectField label="বিভাগ" value={data.division} onChange={(e) => { setData('division', e.target.value); setData('district', ''); setData('upazila', ''); }} options={divisions} required error={errors.division} />
                                         <SelectField label="জেলা" value={data.district} onChange={(e) => { setData('district', e.target.value); setData('upazila', ''); }} options={districts} required error={errors.district} />
@@ -217,7 +217,7 @@ export default function Create({ biodata }) {
                                 </div>
 
                                 <div>
-                                    <h2 className="text-xl font-semibold text-dark-100 mb-4">স্থায়ী ঠিকানা</h2>
+                                    <h2 className="text-xl font-semibold text-slate-900 dark:text-dark-100 mb-4">স্থায়ী ঠিকানা</h2>
                                     <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                                         <SelectField label="বিভাগ" value={data.permanent_division} onChange={(e) => { setData('permanent_division', e.target.value); setData('permanent_district', ''); setData('permanent_upazila', ''); }} options={divisions} />
                                         <SelectField label="জেলা" value={data.permanent_district} onChange={(e) => { setData('permanent_district', e.target.value); setData('permanent_upazila', ''); }} options={permDistricts} />
@@ -284,7 +284,7 @@ export default function Create({ biodata }) {
                         )}
 
                         {/* Navigation & Submit */}
-                        <div className="flex justify-between mt-8 pt-6 border-t border-dark-700/30">
+                        <div className="flex justify-between mt-8 pt-6 border-t border-slate-100 dark:border-dark-700/30">
                             {step > 1 ? (
                                 <button type="button" onClick={prevStep} className="btn-secondary flex items-center space-x-2">
                                     <ChevronLeft className="w-5 h-5" />
