@@ -35,7 +35,7 @@ class AdminController extends Controller
         $users = User::where('status', 'pending')
             ->where('role', 'user')
             ->latest()
-            ->paginate(15);
+            ->paginate(15)->withQueryString();
 
         return Inertia::render('Admin/PendingUsers', [
             'users' => $users,
@@ -112,7 +112,7 @@ class AdminController extends Controller
             });
         }
 
-        $users = $query->latest()->paginate(20);
+        $users = $query->latest()->paginate(20)->withQueryString();
 
         return Inertia::render('Admin/AllUsers', [
             'users' => $users,
@@ -124,7 +124,7 @@ class AdminController extends Controller
     {
         $proposals = Proposal::with(['sender', 'receiver', 'biodata'])
             ->latest()
-            ->paginate(20);
+            ->paginate(20)->withQueryString();
 
         return Inertia::render('Admin/Proposals', [
             'proposals' => $proposals,

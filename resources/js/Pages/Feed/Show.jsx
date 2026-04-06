@@ -54,10 +54,13 @@ export default function Show({ biodata, hasProposed }) {
 
             <div className="max-w-4xl mx-auto space-y-6">
                 {/* Back Link */}
-                <Link href="/feed" className="inline-flex items-center space-x-2 text-slate-500 dark:text-dark-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                <button
+                    onClick={() => window.history.back()}
+                    className="inline-flex items-center space-x-2 text-slate-500 dark:text-dark-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                >
                     <ArrowLeft className="w-5 h-5" />
                     <span>ফিডে ফিরে যান</span>
-                </Link>
+                </button>
 
                 {/* Header Card */}
                 <div className="glass-card p-8">

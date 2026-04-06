@@ -43,10 +43,13 @@ export default function UserDetail({ user, documents }) {
             <Head title={`ব্যবহারকারী - ${user.name}`} />
 
             <div className="max-w-4xl mx-auto space-y-6">
-                <Link href="/admin/pending-users" className="inline-flex items-center space-x-2 text-dark-400 hover:text-primary-400 transition-colors">
+                <button
+                    onClick={() => window.history.back()}
+                    className="inline-flex items-center space-x-2 text-dark-400 hover:text-primary-400 transition-colors"
+                >
                     <ArrowLeft className="w-5 h-5" />
                     <span>ফিরে যান</span>
-                </Link>
+                </button>
 
                 {/* User Info */}
                 <div className="glass-card p-8">

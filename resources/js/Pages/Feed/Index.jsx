@@ -3,7 +3,7 @@ import Layout from '../../Layouts/Layout';
 import Pagination from '../../Components/Pagination';
 import { getDivisions, getDistricts, getUpazilas } from '../../data/bangladeshData';
 import { Search, Filter, MapPin, Briefcase, GraduationCap, Heart, Calendar, User, X, SlidersHorizontal } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Index({ biodatas, filters }) {
     const [showFilters, setShowFilters] = useState(false);
@@ -18,6 +18,19 @@ export default function Index({ biodatas, filters }) {
         upazila: filters?.upazila || '',
         religion: filters?.religion || '',
     });
+    useEffect(() => {
+        setLocalFilters({
+            search: filters?.search || '',
+            type: filters?.type || '',
+            min_age: filters?.min_age || '',
+            max_age: filters?.max_age || '',
+            marital_status: filters?.marital_status || '',
+            division: filters?.division || '',
+            district: filters?.district || '',
+            upazila: filters?.upazila || '',
+            religion: filters?.religion || '',
+        });
+    }, [filters]);
 
     const divisions = getDivisions();
     const districts = getDistricts(localFilters.division);
