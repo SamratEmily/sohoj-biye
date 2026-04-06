@@ -98,7 +98,7 @@ export default function Dashboard({ biodata, stats }) {
                                     <p className="text-slate-500 dark:text-dark-400 text-sm">পাত্র/পাত্রীর বায়োডাটা ব্রাউজ করুন</p>
                                 </div>
                             </div>
-                            <ArrowRight className="w-5 h-5 text-dark-500 group-hover:text-primary-400 group-hover:translate-x-1 transition-all" />
+                            <ArrowRight className="w-5 h-5 text-slate-400 dark:text-dark-500 group-hover:text-primary-500 dark:group-hover:text-primary-400 group-hover:translate-x-1 transition-all" />
                         </div>
                     </Link>
 
@@ -113,7 +113,7 @@ export default function Dashboard({ biodata, stats }) {
                                     <p className="text-slate-500 dark:text-dark-400 text-sm">পাঠানো ও প্রাপ্ত প্রস্তাবসমূহ</p>
                                 </div>
                             </div>
-                            <ArrowRight className="w-5 h-5 text-dark-500 group-hover:text-primary-400 group-hover:translate-x-1 transition-all" />
+                            <ArrowRight className="w-5 h-5 text-slate-400 dark:text-dark-500 group-hover:text-primary-500 dark:group-hover:text-primary-400 group-hover:translate-x-1 transition-all" />
                         </div>
                     </Link>
                 </div>

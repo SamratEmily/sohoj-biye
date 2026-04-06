@@ -194,7 +194,7 @@ export default function Register() {
                             {/* Step 2: Profile Photo */}
                             {step === 2 && (
                                 <div className="space-y-5 slide-up">
-                                    <h2 className="text-xl font-bold text-dark-100 text-center mb-6">প্রোফাইল ছবি</h2>
+                                    <h2 className="text-xl font-bold text-slate-900 dark:text-dark-100 text-center mb-6">প্রোফাইল ছবি</h2>
 
                                     <div className="flex flex-col items-center">
                                         <div
@@ -291,7 +291,7 @@ export default function Register() {
 
                             {/* Upload Progress */}
                             {progress && (
-                                <div className="w-full bg-dark-800 rounded-full h-2">
+                                <div className="w-full bg-slate-200 dark:bg-dark-800 rounded-full h-2">
                                     <div
                                         className="bg-gradient-to-r from-primary-500 to-accent-500 h-2 rounded-full transition-all duration-300"
                                         style={{ width: `${progress.percentage}%` }}

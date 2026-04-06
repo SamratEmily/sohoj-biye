@@ -233,7 +233,7 @@ export default function Create({ biodata }) {
                         {/* Step 3: Education & Profession */}
                         {step === 3 && (
                             <div className="space-y-5 slide-up">
-                                <h2 className="text-xl font-semibold text-dark-100 mb-4">শিক্ষা ও পেশা</h2>
+                                <h2 className="text-xl font-semibold text-slate-900 dark:text-dark-100 mb-4">শিক্ষা ও পেশা</h2>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                                     <SelectField label="শিক্ষাগত যোগ্যতা" value={data.education_level} onChange={(e) => setData('education_level', e.target.value)} options={educationLevels} required error={errors.education_level} />
                                     <InputField label="শিক্ষা বিস্তারিত" name="education_detail" value={data.education_detail} onChange={(e) => setData('education_detail', e.target.value)} placeholder="বিষয়, প্রতিষ্ঠান ইত্যাদি" error={errors.education_detail} />
@@ -248,7 +248,7 @@ export default function Create({ biodata }) {
                         {/* Step 4: Family */}
                         {step === 4 && (
                             <div className="space-y-5 slide-up">
-                                <h2 className="text-xl font-semibold text-dark-100 mb-4">পারিবারিক তথ্য</h2>
+                                <h2 className="text-xl font-semibold text-slate-900 dark:text-dark-100 mb-4">পারিবারিক তথ্য</h2>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                                     <InputField label="পিতার নাম" name="father_name" value={data.father_name} onChange={(e) => setData('father_name', e.target.value)} error={errors.father_name} />
                                     <InputField label="পিতার পেশা" name="father_profession" value={data.father_profession} onChange={(e) => setData('father_profession', e.target.value)} error={errors.father_profession} />
@@ -270,7 +270,7 @@ export default function Create({ biodata }) {
                         {/* Step 5: Partner Preferences */}
                         {step === 5 && (
                             <div className="space-y-5 slide-up">
-                                <h2 className="text-xl font-semibold text-dark-100 mb-4">পাত্র/পাত্রীর প্রত্যাশা</h2>
+                                <h2 className="text-xl font-semibold text-slate-900 dark:text-dark-100 mb-4">পাত্র/পাত্রীর প্রত্যাশা</h2>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                                     <InputField label="বয়সসীমা" name="partner_age_range" value={data.partner_age_range} onChange={(e) => setData('partner_age_range', e.target.value)} placeholder="যেমন: ২০-২৫ বছর" />
                                     <InputField label="গাত্রবর্ণ" name="partner_complexion" value={data.partner_complexion} onChange={(e) => setData('partner_complexion', e.target.value)} placeholder="যেমন: ফর্সা" />

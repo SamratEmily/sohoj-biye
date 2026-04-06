@@ -1,6 +1,7 @@
 import { Head, Link } from '@inertiajs/react';
 import Layout from '../../Layouts/Layout';
 import { User, Clock, Eye, Mail, Phone } from 'lucide-react';
+import Pagination from '../../Components/Pagination';
 
 export default function PendingUsers({ users }) {
     return (
@@ -9,8 +10,8 @@ export default function PendingUsers({ users }) {
 
             <div className="space-y-6">
                 <div>
-                    <h1 className="text-3xl font-bold text-dark-100">অপেক্ষমাণ ব্যবহারকারী</h1>
-                    <p className="text-dark-400 mt-1">নিবন্ধন অনুমোদনের অপেক্ষায় আছেন</p>
+                    <h1 className="text-3xl font-bold text-slate-900 dark:text-dark-100">অপেক্ষমাণ ব্যবহারকারী</h1>
+                    <p className="text-slate-500 dark:text-dark-400 mt-1">নিবন্ধন অনুমোদনের অপেক্ষায় আছেন</p>
                 </div>
 
                 {users.data.length > 0 ? (
@@ -27,8 +28,8 @@ export default function PendingUsers({ users }) {
                                             </div>
                                         )}
                                         <div>
-                                            <h3 className="font-semibold text-dark-100">{user.name}</h3>
-                                            <div className="flex items-center space-x-3 text-sm text-dark-400">
+                                            <h3 className="font-semibold text-slate-900 dark:text-dark-100">{user.name}</h3>
+                                            <div className="flex items-center space-x-3 text-sm text-slate-500 dark:text-dark-400">
                                                 <span className="flex items-center"><Mail className="w-3 h-3 mr-1" />{user.email}</span>
                                                 <span className="flex items-center"><Phone className="w-3 h-3 mr-1" />{user.phone}</span>
                                             </div>
@@ -53,9 +54,9 @@ export default function PendingUsers({ users }) {
                     </div>
                 ) : (
                     <div className="glass-card p-12 text-center">
-                        <Clock className="w-16 h-16 text-dark-600 mx-auto mb-4" />
-                        <h3 className="text-xl font-semibold text-dark-100 mb-2">কোনো অপেক্ষমাণ ব্যবহারকারী নেই</h3>
-                        <p className="text-dark-400">সকল নিবন্ধন পর্যালোচনা করা হয়েছে</p>
+                        <Clock className="w-16 h-16 text-slate-300 dark:text-dark-600 mx-auto mb-4" />
+                        <h3 className="text-xl font-semibold text-slate-900 dark:text-dark-100 mb-2">কোনো অপেক্ষমাণ ব্যবহারকারী নেই</h3>
+                        <p className="text-slate-500 dark:text-dark-400">সকল নিবন্ধন পর্যালোচনা করা হয়েছে</p>
                     </div>
                 )}
 
@@ -69,8 +70,8 @@ export default function PendingUsers({ users }) {
                                 className={`px-4 py-2 rounded-xl text-sm transition-all ${link.active
                                         ? 'bg-primary-500/20 text-primary-300 border border-primary-500/30'
                                         : link.url
-                                            ? 'bg-dark-800/50 text-dark-400 border border-dark-700/30 hover:border-dark-600'
-                                            : 'bg-dark-800/30 text-dark-600'
+                                            ? 'bg-white text-slate-600 border border-slate-200 hover:border-primary-500/30 dark:bg-dark-800/50 dark:text-dark-400 dark:border-dark-700/30 dark:hover:border-dark-600'
+                                            : 'bg-white/50 text-slate-400 border border-slate-100 dark:bg-dark-800/30 dark:text-dark-600'
                                     }`}
                                 dangerouslySetInnerHTML={{ __html: link.label }}
                             />
