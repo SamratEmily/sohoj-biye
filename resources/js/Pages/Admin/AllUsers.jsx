@@ -80,8 +80,8 @@ export default function AllUsers({ users, filters }) {
                                     className="glass-card p-5 flex flex-col md:flex-row md:items-center justify-between space-y-3 md:space-y-0 hover:border-primary-500/30 transition-all duration-300"
                                 >
                                     <div className="flex items-center space-x-4">
-                                        {user.profile_photo ? (
-                                            <img src={`/storage/${user.profile_photo}`} alt="" className="w-12 h-12 rounded-xl object-cover ring-2 ring-dark-700/50" />
+                                        {user.profile_photo_url ? (
+                                            <img src={user.profile_photo_url} alt="" className="w-12 h-12 rounded-xl object-cover ring-2 ring-dark-700/50" />
                                         ) : (
                                             <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center">
                                                 <User className="w-6 h-6 text-white" />

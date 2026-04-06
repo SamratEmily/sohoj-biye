@@ -33,7 +33,7 @@ class ChatController extends Controller
                     'other_user' => [
                         'id' => $otherUser->id,
                         'name' => $otherUser->name,
-                        'profile_photo' => $otherUser->profile_photo_url,
+                        'profile_photo_url' => $otherUser->profile_photo_url,
                     ],
                     'latest_message' => $room->latestMessage,
                     'unread_count' => $unreadCount,
@@ -76,7 +76,7 @@ class ChatController extends Controller
             'otherUser' => [
                 'id' => $otherUser->id,
                 'name' => $otherUser->name,
-                'profile_photo' => $otherUser->profile_photo_url,
+                'profile_photo_url' => $otherUser->profile_photo_url,
             ],
         ]);
     }
@@ -101,7 +101,7 @@ class ChatController extends Controller
             'body' => $validated['body'],
         ]);
 
-        $message->load('sender:id,name,profile_photo');
+        $message->load('sender:id,name');
 
         return back()->with('success', 'মেসেজ পাঠানো হয়েছে');
     }

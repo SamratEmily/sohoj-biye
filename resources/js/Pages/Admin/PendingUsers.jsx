@@ -20,8 +20,8 @@ export default function PendingUsers({ users }) {
                             <div key={user.id} className="glass-card p-6 hover:border-primary-500/30 transition-all duration-300">
                                 <div className="flex flex-col md:flex-row md:items-center justify-between space-y-4 md:space-y-0">
                                     <div className="flex items-center space-x-4">
-                                        {user.profile_photo ? (
-                                            <img src={`/storage/${user.profile_photo}`} alt="" className="w-14 h-14 rounded-xl object-cover ring-2 ring-dark-700/50" />
+                                        {user.profile_photo_url ? (
+                                            <img src={user.profile_photo_url} alt="" className="w-14 h-14 rounded-xl object-cover ring-2 ring-dark-700/50" />
                                         ) : (
                                             <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center">
                                                 <User className="w-7 h-7 text-white" />

@@ -29,8 +29,8 @@ export default function Index({ sentProposals, receivedProposals }) {
             <div className="glass-card p-6 hover:border-primary-500/30 transition-all duration-500">
                 <div className="flex items-start space-x-4">
                     <div className="w-12 h-12 rounded-xl overflow-hidden flex-shrink-0">
-                        {otherUser?.profile_photo ? (
-                            <img src={`/storage/${otherUser.profile_photo}`} alt="" className="w-full h-full object-cover" />
+                        {otherUser?.profile_photo_url ? (
+                            <img src={otherUser.profile_photo_url} alt="" className="w-full h-full object-cover" />
                         ) : (
                             <div className="w-full h-full bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center">
                                 <User className="w-6 h-6 text-white" />

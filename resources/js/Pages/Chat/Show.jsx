@@ -53,8 +53,8 @@ export default function Show({ chatRoom, messages, otherUser }) {
                     <Link href="/chat" className="text-slate-500 dark:text-dark-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
                         <ArrowLeft className="w-6 h-6" />
                     </Link>
-                    {otherUser.profile_photo ? (
-                        <img src={otherUser.profile_photo} alt="" className="w-10 h-10 rounded-xl object-cover ring-2 ring-primary-500/30" />
+                    {otherUser.profile_photo_url ? (
+                        <img src={otherUser.profile_photo_url} alt="" className="w-10 h-10 rounded-xl object-cover ring-2 ring-primary-500/30" />
                     ) : (
                         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center">
                             <User className="w-5 h-5 text-white" />

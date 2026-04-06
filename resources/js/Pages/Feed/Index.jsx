@@ -205,8 +205,8 @@ export default function Index({ biodatas, filters }) {
                                 <div className="p-5 pb-0">
                                     <div className="flex items-start space-x-4">
                                         <div className="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 ring-2 ring-slate-100 dark:ring-dark-700/50 group-hover:ring-primary-500/30 transition-all">
-                                            {biodata.user?.profile_photo ? (
-                                                <img src={`/storage/${biodata.user.profile_photo}`} alt="" className="w-full h-full object-cover" />
+                                            {biodata.user?.profile_photo_url ? (
+                                                <img src={biodata.user.profile_photo_url} alt="" className="w-full h-full object-cover" />
                                             ) : (
                                                 <div className="w-full h-full bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center">
                                                     <User className="w-8 h-8 text-white" />

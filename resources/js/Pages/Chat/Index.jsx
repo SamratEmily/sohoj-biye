@@ -24,8 +24,8 @@ export default function Index({ chatRooms }) {
                                     className="glass-card p-5 flex items-center space-x-4 hover:border-primary-500/30 transition-all duration-300 group"
                                 >
                                     <div className="relative">
-                                        {room.other_user.profile_photo ? (
-                                            <img src={room.other_user.profile_photo} alt="" className="w-14 h-14 rounded-xl object-cover ring-2 ring-slate-100 dark:ring-dark-700/50 group-hover:ring-primary-500/30 transition-all" />
+                                        {room.other_user.profile_photo_url ? (
+                                            <img src={room.other_user.profile_photo_url} alt="" className="w-14 h-14 rounded-xl object-cover ring-2 ring-slate-100 dark:ring-dark-700/50 group-hover:ring-primary-500/30 transition-all" />
                                         ) : (
                                             <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center">
                                                 <User className="w-7 h-7 text-white" />

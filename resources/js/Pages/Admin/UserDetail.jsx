@@ -19,11 +19,11 @@ export default function UserDetail({ user, documents }) {
     };
 
     const docItems = [
-        { key: 'profile_photo', label: 'প্রোফাইল ছবি', icon: Image },
-        { key: 'nid_document', label: 'জাতীয় পরিচয়পত্র (NID)', icon: FileText },
-        { key: 'testimonial_document', label: 'প্রশংসাপত্র', icon: FileText },
-        { key: 'birth_certificate', label: 'জন্ম নিবন্ধন', icon: FileText },
-        { key: 'transcript_document', label: 'ট্রান্সক্রিপ্ট', icon: FileText },
+        { key: 'profile_photo_url', label: 'প্রোফাইল ছবি', icon: Image },
+        { key: 'nid_document_url', label: 'জাতীয় পরিচয়পত্র (NID)', icon: FileText },
+        { key: 'testimonial_document_url', label: 'প্রশংসাপত্র', icon: FileText },
+        { key: 'birth_certificate_url', label: 'জন্ম নিবন্ধন', icon: FileText },
+        { key: 'transcript_document_url', label: 'ট্রান্সক্রিপ্ট', icon: FileText },
     ];
 
     const statusColors = {
@@ -54,8 +54,8 @@ export default function UserDetail({ user, documents }) {
                 {/* User Info */}
                 <div className="glass-card p-8">
                     <div className="flex flex-col md:flex-row items-start md:items-center space-y-4 md:space-y-0 md:space-x-6">
-                        {documents.profile_photo ? (
-                            <img src={documents.profile_photo} alt="" className="w-24 h-24 rounded-2xl object-cover ring-4 ring-primary-500/20" />
+                        {documents.profile_photo_url ? (
+                            <img src={documents.profile_photo_url} alt="" className="w-24 h-24 rounded-2xl object-cover ring-4 ring-primary-500/20" />
                         ) : (
                             <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center">
                                 <User className="w-12 h-12 text-white" />
