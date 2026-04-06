@@ -1,7 +1,7 @@
 import { useForm, Head } from '@inertiajs/react';
 import Layout from '../../Layouts/Layout';
 import { getDivisions, getDistricts, getUpazilas } from '../../data/bangladeshData';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Save, ChevronRight, ChevronLeft } from 'lucide-react';
 
 // Defined OUTSIDE the component so React maintains stable references across renders
@@ -108,18 +108,91 @@ export default function Create({ biodata }) {
         { value: 'separated', label: 'বিচ্ছিন্ন' },
     ];
 
+    // Persist draft to localStorage
+    useEffect(() => {
+        const savedDraft = localStorage.getItem('biodata_draft');
+        if (savedDraft && !isEditing) {
+            try {
+                const parsed = JSON.parse(savedDraft);
+                // We use a single setData call if possible, but useForm's setData 
+                // typically supports an object to replace everything.
+                setData(parsed);
+                
+                const savedStep = localStorage.getItem('biodata_step');
+                if (savedStep) setStep(parseInt(savedStep));
+            } catch (e) {
+                console.error('Failed to load draft', e);
+            }
+        }
+    }, []);
+
+    useEffect(() => {
+        if (!isEditing) {
+            localStorage.setItem('biodata_draft', JSON.stringify(data));
+            localStorage.setItem('biodata_step', step.toString());
+        }
+    }, [data, step]);
+
     const handleSubmit = (e) => {
         e.preventDefault();
+        const options = {
+            onSuccess: () => {
+                localStorage.removeItem('biodata_draft');
+                localStorage.removeItem('biodata_step');
+            }
+        };
         if (isEditing) {
-            put(`/biodata/${biodata.id}`);
+            put(`/biodata/${biodata.id}`, options);
         } else {
-            post('/biodata');
+            post('/biodata', options);
         }
     };
 
     const totalSteps = 5;
-    const nextStep = () => setStep(Math.min(step + 1, totalSteps));
-    const prevStep = () => setStep(Math.max(step - 1, 1));
+    const validateStep = (s) => {
+        if (s === 1) {
+            return data.biodata_type && data.date_of_birth && data.marital_status && data.religion;
+        }
+        if (s === 2) {
+            return data.division && data.district && data.upazila;
+        }
+        if (s === 3) {
+            return data.education_level && data.profession;
+        }
+        return true;
+    };
+
+    const nextStep = () => {
+        if (validateStep(step)) {
+            setStep(Math.min(step + 1, totalSteps));
+            window.scrollTo(0, 0);
+        } else {
+            alert('দয়া করে সকল আবশ্যকীয় তথ্য (চিহ্নিত *) প্রদান করুন');
+        }
+    };
+
+    const goToStep = (targetStep) => {
+        if (targetStep < step) {
+            setStep(targetStep);
+            window.scrollTo(0, 0);
+            return;
+        }
+        
+        // Check all steps up to the target
+        for (let i = step; i < targetStep; i++) {
+            if (!validateStep(i)) {
+                alert(`${stepLabels[i-1]} ধাপে সকল আবশ্যকীয় তথ্য প্রদান করুন`);
+                return;
+            }
+        }
+        setStep(targetStep);
+        window.scrollTo(0, 0);
+    };
+
+    const prevStep = () => {
+        setStep(Math.max(step - 1, 1));
+        window.scrollTo(0, 0);
+    };
 
     const stepLabels = ['ব্যক্তিগত', 'ঠিকানা', 'শিক্ষা ও পেশা', 'পরিবার', 'প্রত্যাশা'];
 
@@ -138,7 +211,8 @@ export default function Create({ biodata }) {
                     {stepLabels.map((label, i) => (
                         <button
                             key={i}
-                            onClick={() => setStep(i + 1)}
+                            type="button"
+                            onClick={() => goToStep(i + 1)}
                             className={`flex items-center space-x-2 px-3 py-2 rounded-xl text-sm transition-all whitespace-nowrap ${step === i + 1
                                 ? 'bg-primary-500/10 text-primary-600 border border-primary-500/30 dark:bg-primary-500/20 dark:text-primary-300'
                                 : step > i + 1
@@ -217,7 +291,30 @@ export default function Create({ biodata }) {
                                 </div>
 
                                 <div>
-                                    <h2 className="text-xl font-semibold text-slate-900 dark:text-dark-100 mb-4">স্থায়ী ঠিকানা</h2>
+                                    <div className="flex items-center justify-between mb-4">
+                                        <h2 className="text-xl font-semibold text-slate-900 dark:text-dark-100">স্থায়ী ঠিকানা</h2>
+                                        <div className="flex items-center space-x-2 bg-primary-500/5 px-3 py-1.5 rounded-lg border border-primary-500/10 transition-all hover:bg-primary-500/10">
+                                            <input
+                                                type="checkbox"
+                                                id="same_as_present"
+                                                className="w-4 h-4 text-primary-600 border-slate-300 rounded focus:ring-primary-500 dark:bg-dark-800 dark:border-dark-700 cursor-pointer"
+                                                onChange={(e) => {
+                                                    if (e.target.checked) {
+                                                        setData({
+                                                            ...data,
+                                                            permanent_division: data.division,
+                                                            permanent_district: data.district,
+                                                            permanent_upazila: data.upazila,
+                                                            permanent_address: data.full_address
+                                                        });
+                                                    }
+                                                }}
+                                            />
+                                            <label htmlFor="same_as_present" className="text-[13px] font-medium text-slate-700 dark:text-dark-300 cursor-pointer select-none">
+                                                বর্তমান ঠিকানার মতই
+                                            </label>
+                                        </div>
+                                    </div>
                                     <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                                         <SelectField label="বিভাগ" value={data.permanent_division} onChange={(e) => { setData('permanent_division', e.target.value); setData('permanent_district', ''); setData('permanent_upazila', ''); }} options={divisions} />
                                         <SelectField label="জেলা" value={data.permanent_district} onChange={(e) => { setData('permanent_district', e.target.value); setData('permanent_upazila', ''); }} options={permDistricts} />
