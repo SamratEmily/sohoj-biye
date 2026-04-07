@@ -89,19 +89,31 @@ export default function Show({ biodata, hasProposed }) {
                         </div>
 
                         {!isOwnBiodata && (
-                            <div>
+                            <div className="flex-shrink-0">
                                 {hasProposed ? (
                                     <span className="btn-secondary cursor-default text-sm py-2 px-5 opacity-60">
                                         ✓ প্রস্তাব পাঠানো হয়েছে
                                     </span>
                                 ) : (
-                                    <button
-                                        onClick={() => setShowProposalForm(!showProposalForm)}
-                                        className="btn-primary flex items-center space-x-2"
-                                    >
-                                        <Send className="w-5 h-5" />
-                                        <span>প্রস্তাব পাঠান</span>
-                                    </button>
+                                    <>
+                                        {auth?.user?.has_biodata ? (
+                                            <button
+                                                onClick={() => setShowProposalForm(!showProposalForm)}
+                                                className="btn-primary flex items-center space-x-2"
+                                            >
+                                                <Send className="w-5 h-5" />
+                                                <span>প্রস্তাব পাঠান</span>
+                                            </button>
+                                        ) : (
+                                            <Link
+                                                href="/biodata/create"
+                                                className="flex items-center space-x-2 px-5 py-2.5 rounded-xl text-sm font-medium transition-all bg-slate-100 text-slate-700 border border-slate-200 hover:border-primary-500/30 dark:bg-dark-800/50 dark:text-dark-200 dark:border-dark-700 dark:hover:border-dark-600"
+                                            >
+                                                <FileText className="w-5 h-5 text-primary-500" />
+                                                <span>আগে বায়োডাটা তৈরি করুন</span>
+                                            </Link>
+                                        )}
+                                    </>
                                 )}
                             </div>
                         )}
