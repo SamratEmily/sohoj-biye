@@ -53,17 +53,24 @@ export default function Show({ chatRoom, messages, otherUser }) {
                     <Link href="/chat" className="text-slate-500 dark:text-dark-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
                         <ArrowLeft className="w-6 h-6" />
                     </Link>
-                    {otherUser.profile_photo_url ? (
-                        <img src={otherUser.profile_photo_url} alt="" className="w-10 h-10 rounded-xl object-cover ring-2 ring-primary-500/30" />
-                    ) : (
-                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center">
-                            <User className="w-5 h-5 text-white" />
+                    <Link 
+                        href={otherUser.biodata_id ? `/feed/${otherUser.biodata_id}` : '#'} 
+                        className="flex items-center space-x-4 flex-1 group"
+                    >
+                        <div className="w-10 h-10 rounded-xl overflow-hidden ring-2 ring-primary-500/30 group-hover:ring-primary-500/50 transition-all">
+                            {otherUser.profile_photo_url ? (
+                                <img src={otherUser.profile_photo_url} alt="" className="w-full h-full object-cover" />
+                            ) : (
+                                <div className="w-full h-full bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center">
+                                    <User className="w-5 h-5 text-white" />
+                                </div>
+                            )}
                         </div>
-                    )}
-                    <div>
-                        <h2 className="font-semibold text-slate-900 dark:text-dark-100">{otherUser.name}</h2>
-                        <p className="text-slate-400 dark:text-dark-500 text-xs">প্রাইভেট চ্যাট</p>
-                    </div>
+                        <div>
+                            <h2 className="font-semibold text-slate-900 dark:text-dark-100 group-hover:text-primary-500 transition-colors">{otherUser.name}</h2>
+                            <p className="text-slate-400 dark:text-dark-500 text-xs">প্রাইভেট চ্যাট</p>
+                        </div>
+                    </Link>
                 </div>
 
                 {/* Messages */}

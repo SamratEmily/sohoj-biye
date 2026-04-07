@@ -23,6 +23,11 @@ class ProposalController extends Controller
         ]);
 
         $biodata = Biodata::findOrFail($validated['biodata_id']);
+        
+        // Check if sender has their own biodata
+        if (!auth()->user()->biodata()->exists()) {
+            return back()->with('error', 'প্রস্তাব পাঠানোর আগে আপনার নিজস্ব বায়োডাটা তৈরি করতে হবে');
+        }
 
         // Can't send proposal to yourself
         if ($biodata->user_id === auth()->id()) {
@@ -92,13 +97,13 @@ class ProposalController extends Controller
 
     public function myProposals(Request $request)
     {
-        $sentProposals = Proposal::with(['receiver', 'biodata', 'chatRoom'])
+        $sentProposals = Proposal::with(['receiver.biodata', 'biodata', 'chatRoom'])
             ->where('sender_id', auth()->id())
             ->latest()
             ->paginate(8, ['*'], 'sent_page')
             ->withQueryString();
 
-        $receivedProposals = Proposal::with(['sender', 'biodata', 'chatRoom'])
+        $receivedProposals = Proposal::with(['sender.biodata', 'biodata', 'chatRoom'])
             ->where('receiver_id', auth()->id())
             ->latest()
             ->paginate(8, ['*'], 'received_page')

@@ -27,6 +27,7 @@ class HandleInertiaRequests extends Middleware
                     'role' => $request->user()->role,
                     'status' => $request->user()->status,
                     'profile_photo' => $request->user()->profile_photo_url,
+                    'has_biodata' => $request->user()->biodata()->exists(),
                 ] : null,
             ],
             'flash' => [

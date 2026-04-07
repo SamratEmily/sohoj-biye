@@ -13,7 +13,7 @@ class ChatController extends Controller
     {
         $userId = auth()->id();
 
-        $chatRooms = ChatRoom::with(['userOne', 'userTwo', 'latestMessage', 'proposal'])
+        $chatRooms = ChatRoom::with(['userOne.biodata', 'userTwo.biodata', 'latestMessage', 'proposal'])
             ->where(function ($q) use ($userId) {
                 $q->where('user_one_id', $userId)
                   ->orWhere('user_two_id', $userId);
@@ -34,6 +34,7 @@ class ChatController extends Controller
                         'id' => $otherUser->id,
                         'name' => $otherUser->name,
                         'profile_photo_url' => $otherUser->profile_photo_url,
+                        'biodata_id' => $otherUser->biodata?->id,
                     ],
                     'latest_message' => $room->latestMessage,
                     'unread_count' => $unreadCount,
@@ -77,6 +78,7 @@ class ChatController extends Controller
                 'id' => $otherUser->id,
                 'name' => $otherUser->name,
                 'profile_photo_url' => $otherUser->profile_photo_url,
+                'biodata_id' => $otherUser->biodata?->id,
             ],
         ]);
     }

@@ -30,8 +30,18 @@ export default function Register() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        
+        // Final validation for Step 3
+        if (!data.nid_document) {
+            alert('জাতীয় পরিচয়পত্র (NID) আপলোড করা আবশ্যক');
+            return;
+        }
+
         post('/register', {
             forceFormData: true,
+            onSuccess: () => {
+                // Done
+            },
         });
     };
 
@@ -44,8 +54,82 @@ export default function Register() {
         }
     };
 
-    const nextStep = () => setStep(Math.min(step + 1, 3));
-    const prevStep = () => setStep(Math.max(step - 1, 1));
+    const MAX_PHOTO_SIZE = 2 * 1024 * 1024; // 2MB
+
+    const validateStep = (s) => {
+        if (s === 1) {
+            return (
+                data.name.trim() !== '' &&
+                data.email.trim() !== '' &&
+                data.phone.trim() !== '' &&
+                data.password.length >= 8 &&
+                data.password === data.password_confirmation
+            );
+        }
+        if (s === 2) {
+            if (!data.profile_photo) return false;
+            const isValidSize = data.profile_photo.size <= MAX_PHOTO_SIZE;
+            const isValidType = data.profile_photo.type.startsWith('image/');
+            return isValidSize && isValidType;
+        }
+        return true;
+    };
+
+    const nextStep = async () => {
+        if (!validateStep(step)) {
+            if (step === 1) {
+                if (data.name.trim() === '') {
+                    alert('আপনার পূর্ণ নাম লিখুন');
+                } else if (data.email.trim() === '') {
+                    alert('ইমেইল ঠিকানা লিখুন');
+                } else if (data.phone.trim() === '') {
+                    alert('ফোন নম্বর লিখুন');
+                } else if (data.password.length < 8) {
+                    alert('পাসওয়ার্ড অন্তত ৮ অক্ষরের হতে হবে');
+                } else if (data.password !== data.password_confirmation) {
+                    alert('পাসওয়ার্ড দুটি মিলছে না');
+                }
+            } else if (step === 2) {
+                if (!data.profile_photo) {
+                    alert('দয়া করে একটি প্রোফাইল ছবি আপলোড করুন');
+                } else if (!data.profile_photo.type.startsWith('image/')) {
+                    alert('সঠিক ছবি ফরম্যাট (JPG/PNG) নির্বাচন করুন');
+                } else if (data.profile_photo.size > MAX_PHOTO_SIZE) {
+                    alert('ছবির সাইজ ২MB এর নিচে হতে হবে');
+                }
+            }
+            return;
+        }
+
+        if (step === 1) {
+            try {
+                // Check Email uniqueness
+                const emailRes = await axios.post('/check-email', { email: data.email });
+                if (emailRes.data.exists) {
+                    alert('এই ইমেইল ইতিমধ্যে ব্যবহৃত হয়েছে');
+                    return;
+                }
+
+                // Check Phone uniqueness
+                const phoneRes = await axios.post('/check-phone', { phone: data.phone });
+                if (phoneRes.data.exists) {
+                    alert('এই ফোন নম্বর ইতিমধ্যে ব্যবহৃত হয়েছে');
+                    return;
+                }
+            } catch (e) {
+                console.error('Validation check failed:', e);
+                // Fallback to allowing next step if server check fails (server validation will still catch it)
+            }
+        }
+
+        setStep(Math.min(step + 1, 3));
+        window.scrollTo(0, 0);
+    };
+
+    const prevStep = () => {
+        setStep(Math.max(step - 1, 1));
+        window.scrollTo(0, 0);
+    };
 
     const steps = [
         { num: 1, label: 'ব্যক্তিগত তথ্য' },

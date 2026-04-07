@@ -28,7 +28,10 @@ export default function Index({ sentProposals, receivedProposals }) {
         return (
             <div className="glass-card p-6 hover:border-primary-500/30 transition-all duration-500">
                 <div className="flex items-start space-x-4">
-                    <div className="w-12 h-12 rounded-xl overflow-hidden flex-shrink-0">
+                    <Link 
+                        href={otherUser?.biodata?.id ? `/feed/${otherUser.biodata.id}` : '#'} 
+                        className="w-12 h-12 rounded-xl overflow-hidden flex-shrink-0 ring-2 ring-transparent hover:ring-primary-500/30 transition-all"
+                    >
                         {otherUser?.profile_photo_url ? (
                             <img src={otherUser.profile_photo_url} alt="" className="w-full h-full object-cover" />
                         ) : (
@@ -36,10 +39,15 @@ export default function Index({ sentProposals, receivedProposals }) {
                                 <User className="w-6 h-6 text-white" />
                             </div>
                         )}
-                    </div>
+                    </Link>
                     <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between mb-2 flex-wrap gap-2">
-                            <h3 className="font-semibold text-slate-900 dark:text-dark-100 truncate">{otherUser?.name}</h3>
+                            <Link 
+                                href={otherUser?.biodata?.id ? `/feed/${otherUser.biodata.id}` : '#'}
+                                className="font-semibold text-slate-900 dark:text-dark-100 truncate hover:text-primary-500 transition-colors"
+                            >
+                                {otherUser?.name}
+                            </Link>
                             <span className={`text-xs px-3 py-1 rounded-full border font-medium flex items-center space-x-1 ${status?.color}`}>
                                 <StatusIcon className="w-3 h-3" />
                                 <span>{status?.label}</span>
