@@ -13,6 +13,18 @@ use Inertia\Inertia;
 
 class AuthController extends Controller
 {
+    public function checkPhone(Request $request)
+    {
+        $exists = User::where('phone', $request->phone)->exists();
+        return response()->json(['exists' => $exists]);
+    }
+
+    public function checkEmail(Request $request)
+    {
+        $exists = User::where('email', $request->email)->exists();
+        return response()->json(['exists' => $exists]);
+    }
+
     public function showRegister()
     {
         return Inertia::render('Auth/Register');
