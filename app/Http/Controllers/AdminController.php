@@ -51,11 +51,11 @@ class AdminController extends Controller
                 'birth_certificate', 'transcript_document', 'created_at',
             ]),
             'documents' => [
-                'profile_photo' => $user->profile_photo ? asset('storage/' . $user->profile_photo) : null,
-                'nid_document' => $user->nid_document ? asset('storage/' . $user->nid_document) : null,
-                'testimonial_document' => $user->testimonial_document ? asset('storage/' . $user->testimonial_document) : null,
-                'birth_certificate' => $user->birth_certificate ? asset('storage/' . $user->birth_certificate) : null,
-                'transcript_document' => $user->transcript_document ? asset('storage/' . $user->transcript_document) : null,
+                'profile_photo_url' => $user->profile_photo_url,
+                'nid_document_url' => $user->nid_document_url,
+                'testimonial_document_url' => $user->testimonial_document_url,
+                'birth_certificate_url' => $user->birth_certificate_url,
+                'transcript_document_url' => $user->transcript_document_url,
             ],
         ]);
     }

@@ -25,6 +25,14 @@ class User extends Authenticatable
         'rejection_reason',
     ];
 
+    protected $appends = [
+        'profile_photo_url',
+        'nid_document_url',
+        'testimonial_document_url',
+        'birth_certificate_url',
+        'transcript_document_url'
+    ];
+
     protected $hidden = [
         'password',
         'remember_token',
@@ -43,6 +51,34 @@ class User extends Authenticatable
     {
         return $this->profile_photo
             ? asset('storage/' . $this->profile_photo)
+            : null;
+    }
+
+    public function getNidDocumentUrlAttribute(): ?string
+    {
+        return $this->nid_document
+            ? asset('storage/' . $this->nid_document)
+            : null;
+    }
+
+    public function getTestimonialDocumentUrlAttribute(): ?string
+    {
+        return $this->testimonial_document
+            ? asset('storage/' . $this->testimonial_document)
+            : null;
+    }
+
+    public function getBirthCertificateUrlAttribute(): ?string
+    {
+        return $this->birth_certificate
+            ? asset('storage/' . $this->birth_certificate)
+            : null;
+    }
+
+    public function getTranscriptDocumentUrlAttribute(): ?string
+    {
+        return $this->transcript_document
+            ? asset('storage/' . $this->transcript_document)
             : null;
     }
 
